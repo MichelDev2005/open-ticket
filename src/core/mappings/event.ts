@@ -28,6 +28,7 @@ import { ODMappedVerifyBarManager } from "./verifybar.js"
 import { ODMappedStartScreenManager } from "./startscreen.js"
 import { ODMappedLiveStatusManager } from "./console.js"
 import { ODMappedProgressBarManager, ODMappedProgressBarRendererManager } from "./progressbar.js"
+import { ODMappedComponentManager, ODMappedMessageComponentManager, ODMappedModalComponentManager, ODMappedSharedComponentManager } from "./component.js"
 
 //OPEN TICKET MAPPINGSS
 import { ODOptionManager, ODTicketOption } from "../api/option.js"
@@ -247,6 +248,14 @@ export interface ODEventManagerIdMappings extends api.ODEventManagerIdConstraint
     "afterMessageBuildersLoaded": api.ODEvent<(messages:ODMappedMessageManager, builders:ODMappedBuilderManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
     "onModalBuilderLoad": api.ODEvent<(modals:ODMappedModalManager, builders:ODMappedBuilderManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
     "afterModalBuildersLoaded": api.ODEvent<(modals:ODMappedModalManager, builders:ODMappedBuilderManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+
+    //components
+    "onSharedComponentLoad": api.ODEvent<(shared:ODMappedSharedComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+    "afterSharedComponentsLoaded": api.ODEvent<(shared:ODMappedSharedComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+    "onMessageComponentLoad": api.ODEvent<(shared:ODMappedMessageComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+    "afterMessageComponentsLoaded": api.ODEvent<(shared:ODMappedMessageComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+    "onModalComponentLoad": api.ODEvent<(shared:ODMappedModalComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
+    "afterModalComponentsLoaded": api.ODEvent<(shared:ODMappedModalComponentManager, components:ODMappedComponentManager, actions:ODMappedActionManager) => api.ODPromiseVoid>
 
     //plugin loading before responders
     "onPluginBeforeResponderLoad": api.ODEvent<() => api.ODPromiseVoid>,

@@ -206,6 +206,14 @@ export const loadAllEvents = () => {
         "onModalBuilderLoad",
         "afterModalBuildersLoaded",
 
+        //components
+        "onSharedComponentLoad",
+        "afterSharedComponentsLoaded",
+        "onMessageComponentLoad",
+        "afterMessageComponentsLoaded",
+        "onModalComponentLoad",
+        "afterModalComponentsLoaded",
+
         //plugin loading before responders
         "onPluginBeforeResponderLoad",
         "afterPluginBeforeResponderLoaded",

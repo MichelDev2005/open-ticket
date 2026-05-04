@@ -9,7 +9,7 @@ import * as discord from "discord.js"
  * It's used to generate typescript declarations for this class.
  */
 export interface ODSharedComponentManagerIdMappings extends api.ODComponentManagerIdConstraint {
-    "opendiscord:example-component":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-component"},
+    //"opendiscord:example-component":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-component"},
 }
 
 /**## ODMessageComponentManagerIdMappings `interface`
@@ -17,7 +17,7 @@ export interface ODSharedComponentManagerIdMappings extends api.ODComponentManag
  * It's used to generate typescript declarations for this class.
  */
 export interface ODMessageComponentManagerIdMappings extends api.ODComponentManagerIdConstraint {
-    "opendiscord:example-message":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-message"},
+    //"opendiscord:example-message":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-message"},
 }
 
 /**## ODModalComponentManagerIdMappings `interface`
@@ -25,7 +25,7 @@ export interface ODMessageComponentManagerIdMappings extends api.ODComponentMana
  * It's used to generate typescript declarations for this class.
  */
 export interface ODModalComponentManagerIdMappings extends api.ODComponentManagerIdConstraint {
-    "opendiscord:example-modal":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-modal"},
+    //"opendiscord:example-modal":{origin:"slash"|"text"|"other",params:{guild:discord.Guild|null,channel:discord.TextBasedChannel,user:discord.User},workers:"opendiscord:example-modal"},
 }
 
 /////////////////////////////

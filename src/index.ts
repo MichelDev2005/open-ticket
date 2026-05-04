@@ -634,6 +634,30 @@ const main = async () => {
     await opendiscord.events.get("onModalBuilderLoad").emit([opendiscord.builders.modals,opendiscord.builders,opendiscord.actions])
     await opendiscord.events.get("afterModalBuildersLoaded").emit([opendiscord.builders.modals,opendiscord.builders,opendiscord.actions])
 
+    //load shared components
+    opendiscord.log("Loading shared components...","system")
+    if (opendiscord.sharedFuses.getFuse("sharedComponentsLoading")){
+        //TODO TODO
+    }
+    await opendiscord.events.get("onSharedComponentLoad").emit([opendiscord.components.shared,opendiscord.components,opendiscord.actions])
+    await opendiscord.events.get("afterSharedComponentsLoaded").emit([opendiscord.components.shared,opendiscord.components,opendiscord.actions])
+
+    //load message components
+    opendiscord.log("Loading message components...","system")
+    if (opendiscord.sharedFuses.getFuse("messageComponentsLoading")){
+        //TODO TODO
+    }
+    await opendiscord.events.get("onMessageComponentLoad").emit([opendiscord.components.messages,opendiscord.components,opendiscord.actions])
+    await opendiscord.events.get("afterMessageComponentsLoaded").emit([opendiscord.components.messages,opendiscord.components,opendiscord.actions])
+
+    //load modal components
+    opendiscord.log("Loading modal components...","system")
+    if (opendiscord.sharedFuses.getFuse("modalComponentsLoading")){
+        //TODO TODO
+    }
+    await opendiscord.events.get("onModalComponentLoad").emit([opendiscord.components.modals,opendiscord.components,opendiscord.actions])
+    await opendiscord.events.get("afterModalComponentsLoaded").emit([opendiscord.components.modals,opendiscord.components,opendiscord.actions])
+
     //plugin loading before responders
     await opendiscord.events.get("onPluginBeforeResponderLoad").emit([])
     await opendiscord.events.get("afterPluginBeforeResponderLoaded").emit([])
