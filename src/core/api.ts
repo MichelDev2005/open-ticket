@@ -25,6 +25,7 @@ export * from "./mappings/progressbar.js"
 export * from "./mappings/responder.js"
 export * from "./mappings/session.js"
 export * from "./mappings/startscreen.js"
+export * from "./mappings/state.js"
 export * from "./mappings/statistic.js"
 export * from "./mappings/verifybar.js"
 

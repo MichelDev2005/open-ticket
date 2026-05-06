@@ -78,7 +78,7 @@ export const loadDatabaseCleanersCode = async () => {
             if (!validPanels.includes(panel.key)){
                 try{
                     const splittedId = panel.key.split("_")
-                    const message = await opendiscord.client.fetchGuildChannelMessage(mainServer,splittedId[0],splittedId[1])
+                    const message = await opendiscord.client.fetchChannelMessage(splittedId[0],splittedId[1])
                     if (message) validPanels.push(panel.key)
                 }catch{}
             }
@@ -302,7 +302,7 @@ export const loadPanelAutoUpdateCode = async () => {
                 const splittedId = panelId.key.split("_")
                 const channel = await opendiscord.client.fetchGuildTextChannel(mainServer,splittedId[0])
                 if (!channel) return
-                const message = await opendiscord.client.fetchGuildChannelMessage(mainServer,channel,splittedId[1])
+                const message = await opendiscord.client.fetchChannelMessage(channel,splittedId[1])
                 if (!message || !message.editable) return
                 
                 message.edit((await opendiscord.builders.messages.getSafe("opendiscord:panel").build("auto-update",{guild:mainServer,channel,user:opendiscord.client.client.user,panel})).message)

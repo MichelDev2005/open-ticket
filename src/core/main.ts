@@ -28,6 +28,7 @@ export class ODOpenTicketMain extends api.ODMain {
     declare statistics: api.ODMappedStatisticManager
     declare code: api.ODMappedCodeManager
     declare posts: api.ODMappedPostManager
+    declare states: api.ODMappedStateManager
     
     declare client: api.ODMappedClientManager
     declare livestatus: api.ODMappedLiveStatusManager
@@ -98,6 +99,7 @@ export class ODOpenTicketMain extends api.ODMain {
             statistics:new api.ODMappedStatisticManager(debug),
             code:new api.ODMappedCodeManager(debug),
             posts:new api.ODMappedPostManager(debug),
+            states:new api.ODMappedStateManager(debug),
             
             sharedFuses:utilities.sharedFuses,
             env:new api.ODEnvHelper(),

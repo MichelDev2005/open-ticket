@@ -514,6 +514,21 @@ const main = async () => {
         opendiscord.log("discord.js client ready!","info")
     }
 
+    //load states
+    opendiscord.log("Loading states...","system")
+    if (opendiscord.sharedFuses.getFuse("stateLoading")){
+        await (await import("./data/framework/stateLoader.js")).loadAllStates()
+    }
+    await opendiscord.events.get("onStateLoad").emit([opendiscord.states])
+    await opendiscord.events.get("afterStatesLoaded").emit([opendiscord.states])
+
+    //init states
+    await opendiscord.events.get("onStateInit").emit([opendiscord.states])
+    if (opendiscord.sharedFuses.getFuse("stateInitiating")){
+        await opendiscord.states.init()
+        await opendiscord.events.get("afterStatesInitiated").emit([opendiscord.states])
+    }
+
     //plugin loading before managers
     await opendiscord.events.get("onPluginBeforeManagerLoad").emit([])
     await opendiscord.events.get("afterPluginBeforeManagerLoaded").emit([])
@@ -813,7 +828,7 @@ const main = async () => {
     //init posts
     await opendiscord.events.get("onPostInit").emit([opendiscord.posts])
     if (opendiscord.sharedFuses.getFuse("postsInitiating")){
-        if (opendiscord.client.mainServer) opendiscord.posts.init(opendiscord.client.mainServer)
+        if (opendiscord.client.mainServer) await opendiscord.posts.init(opendiscord.client.mainServer)
         await opendiscord.events.get("afterPostsInitiated").emit([opendiscord.posts])
     }
 

@@ -96,6 +96,12 @@ export const loadAllEvents = () => {
         "onTextCommandLoad",
         "afterTextCommandsLoaded",
 
+        //states
+        "onStateLoad",
+        "afterStatesLoaded",
+        "onStateInit",
+        "afterStatesInitiated",
+
         //plugin loading before managers
         "onPluginBeforeManagerLoad",
         "afterPluginBeforeManagerLoaded",

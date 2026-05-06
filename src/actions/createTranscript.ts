@@ -135,7 +135,7 @@ export const registerActions = async () => {
                         
                         //send channel message
                         if (transcriptConfig.data.general.enableChannel && channelMessage){
-                            if (instance.pendingMessage && instance.pendingMessage.message && instance.pendingMessage.success){
+                            if (instance.pendingMessage && instance.pendingMessage.success){
                                 //edit "pending" message to be the "ready" message
                                 instance.pendingMessage.message.edit(utilities.getMessageFromBuildResult(channelMessage,"message"))
                             }else{

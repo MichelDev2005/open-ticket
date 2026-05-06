@@ -29,6 +29,7 @@ import { ODMappedStartScreenManager } from "./startscreen.js"
 import { ODMappedLiveStatusManager } from "./console.js"
 import { ODMappedProgressBarManager, ODMappedProgressBarRendererManager } from "./progressbar.js"
 import { ODMappedComponentManager, ODMappedMessageComponentManager, ODMappedModalComponentManager, ODMappedSharedComponentManager } from "./component.js"
+import { ODMappedStateManager } from "./state.js"
 
 //OPEN TICKET MAPPINGSS
 import { ODOptionManager, ODTicketOption } from "../api/option.js"
@@ -138,6 +139,12 @@ export interface ODEventManagerIdMappings extends api.ODEventManagerIdConstraint
     //client text commands
     "onTextCommandLoad": api.ODEvent<(text:ODMappedTextCommandManager, client:ODMappedClientManager) => api.ODPromiseVoid>
     "afterTextCommandsLoaded": api.ODEvent<(text:ODMappedTextCommandManager, client:ODMappedClientManager) => api.ODPromiseVoid>
+
+    //states
+    "onStateLoad": api.ODEvent<(posts:ODMappedStateManager) => api.ODPromiseVoid>
+    "afterStatesLoaded": api.ODEvent<(posts:ODMappedStateManager) => api.ODPromiseVoid>
+    "onStateInit": api.ODEvent<(posts:ODMappedStateManager) => api.ODPromiseVoid>
+    "afterStatesInitiated": api.ODEvent<(posts:ODMappedStateManager) => api.ODPromiseVoid>
 
     //plugin loading before managers
     "onPluginBeforeManagerLoad": api.ODEvent<() => api.ODPromiseVoid>,
