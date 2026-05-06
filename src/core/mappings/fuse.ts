@@ -4,6 +4,8 @@
 import * as api from "@open-discord-bots/framework/api"
 
 export interface ODOpenTicketFuseList {
+    /**Load the default Open Ticket ticket priority levels. */
+    priorityLoading:boolean,
     /**Load the default Open Ticket questions (from `config/questions.json`) */
     questionLoading:boolean,
     /**Load the default Open Ticket options (from `config/options.json`) */

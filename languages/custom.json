@@ -174,7 +174,7 @@
             
             "helpExplanation":"`<name>` => required parameter\n`[name]` => optional parameter",
             "statsReset":"The bot statistics have been reset.",
-            "statsError":"nable to retrieve ticket statistics.\n{0} is not a valid ticket.",
+            "statsError":"Unable to retrieve ticket statistics.\n{0} is not a valid ticket.",
             "blacklistAdd":"{0} has been blacklisted.",
             "blacklistRemove":"{0} has been released.",
             "blacklistGetSuccess":"{0} is blacklisted!",

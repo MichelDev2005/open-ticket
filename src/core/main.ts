@@ -111,6 +111,7 @@ export class ODOpenTicketMain extends api.ODMain {
 
         //OPEN TICKET
         this.fuses = new api.ODFuseManager<api.ODOpenTicketFuseList>({
+            priorityLoading:true,
             questionLoading:true,
             optionLoading:true,
             panelLoading:true,

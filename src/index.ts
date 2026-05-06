@@ -415,7 +415,7 @@ const main = async () => {
 
             //load priority levels
             opendiscord.log("Loading prioritiy levels...","system")
-            if (opendiscord.sharedFuses.getFuse("priorityLoading")){
+            if (opendiscord.fuses.getFuse("priorityLoading")){
                 await (await import("./data/openticket/priorityLoader.js")).loadAllPriorityLevels()
             }
             await opendiscord.events.get("onPriorityLoad").emit([opendiscord.priorities])
