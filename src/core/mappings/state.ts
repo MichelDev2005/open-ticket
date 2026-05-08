@@ -9,7 +9,7 @@ import * as discord from "discord.js"
  * It's used to generate typescript declarations for this class.
  */
 export interface ODStateManagerIdMappings extends api.ODStateManagerIdConstraint {
-    //"opendiscord:example-state":api.ODState<any>,
+    "opendiscord:message-origin":ODMessageOriginState,
 }
 
 /////////////////////////////
@@ -20,3 +20,10 @@ export interface ODStateManagerIdMappings extends api.ODStateManagerIdConstraint
  * A special class with types for the Open Ticket `ODStateManager` class.
  */
 export class ODMappedStateManager extends api.ODStateManager<ODStateManagerIdMappings> {}
+
+/**## ODGeneralJsonConfig `class
+ * A special class with types for the Open Ticket message origin states.
+ */
+export class ODMessageOriginState extends api.ODState<{
+    messageOrigin:"ticket-message"|"close-message"|"reopen-message"|"autoclose-message"|"claim-message"|"unclaim-message"|"pin-message"|"unpin-message"
+}> {}

@@ -15,6 +15,7 @@ export interface ODDatabaseManagerIdMappings extends api.ODDatabaseManagerIdCons
     "opendiscord:tickets":ODTicketsDatabase,
     "opendiscord:users":ODUsersDatabase,
     "opendiscord:options":ODOptionsDatabase,
+    "opendiscord:message-states":ODMessageStatesDatabase,
 }
 
 /////////////////////////////////////////
@@ -90,3 +91,8 @@ export class ODUsersDatabase extends api.ODFormattedJsonDatabase<ODUsersDatabase
  * A special class with types for the Open Ticket `database/options.json` database file
  */
 export class ODOptionsDatabase extends api.ODFormattedJsonDatabase<ODOptionsDatabaseIdMappings> {}
+
+/**## ODMessageStatesDatabase `class
+ * A special class with types for the Open Ticket `database/states.json` database file
+ */
+export class ODMessageStatesDatabase extends api.ODFormattedJsonDatabase {}

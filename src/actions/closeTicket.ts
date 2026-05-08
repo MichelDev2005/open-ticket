@@ -171,7 +171,7 @@ export const registerVerifyBars = async () => {
     opendiscord.verifybars.get("opendiscord:close-ticket-ticket-message").success.add([
         new api.ODWorker("opendiscord:close-ticket",0,async (instance,params,origin,cancel) => {
             const {user,member,channel,guild} = instance
-                                    
+            
             //check permissions
             const permsResult = await opendiscord.permissions.checkCommandPerms(generalConfig.data.system.permissions.close,"support",user,member,channel,guild)
             if (!permsResult.hasPerms){
