@@ -8,23 +8,23 @@ import * as api from "@open-discord-bots/framework/api"
  * It's used to generate typescript declarations for this class.
  */
 export interface ODVerifyBarManagerIdMappings extends api.ODVerifyBarManagerIdConstraint {
-    "opendiscord:claim-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:claim-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:claim-ticket-unclaim-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:claim-ticket",failureWorkerIds:"opendiscord:back-to-unclaim-message"},
-    "opendiscord:unclaim-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:unclaim-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:unclaim-ticket-claim-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:unclaim-ticket",failureWorkerIds:"opendiscord:back-to-claim-message"},
-    "opendiscord:pin-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:pin-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:pin-ticket-unpin-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:pin-ticket",failureWorkerIds:"opendiscord:back-to-unpin-message"},
-    "opendiscord:unpin-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:unpin-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:unpin-ticket-pin-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:unpin-ticket",failureWorkerIds:"opendiscord:back-to-pin-message"},
-    "opendiscord:close-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:close-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:close-ticket-reopen-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:close-ticket",failureWorkerIds:"opendiscord:back-to-reopen-message"},
-    "opendiscord:reopen-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:reopen-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"},
-    "opendiscord:reopen-ticket-close-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:reopen-ticket",failureWorkerIds:"opendiscord:back-to-close-message"},
-    "opendiscord:reopen-ticket-autoclose-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:reopen-ticket",failureWorkerIds:"opendiscord:back-to-autoclose-message"},
-    "opendiscord:delete-ticket-ticket-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:delete-ticket",failureWorkerIds:"opendiscord:back-to-ticket-message"}
-    "opendiscord:delete-ticket-close-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:delete-ticket",failureWorkerIds:"opendiscord:back-to-close-message"}
-    "opendiscord:delete-ticket-reopen-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:delete-ticket",failureWorkerIds:"opendiscord:back-to-reopen-message"}
-    "opendiscord:delete-ticket-autoclose-message":{successWorkerIds:"opendiscord:permissions"|"opendiscord:delete-ticket",failureWorkerIds:"opendiscord:back-to-autoclose-message"}
+    "opendiscord:close-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:close-ticket">,
+    "opendiscord:reopen-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:reopen-ticket">,
+    "opendiscord:delete-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:delete-ticket">,
+    "opendiscord:claim-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:claim-ticket">,
+    "opendiscord:unclaim-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:unclaim-ticket">,
+    "opendiscord:pin-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:pin-ticket">,
+    "opendiscord:unpin-ticket":api.ODVerifyBar<"accept"|"cancel"|"accept-with-reason","opendiscord:unpin-ticket">,
+}
+
+/**## ODVerifyButtonId `enum`
+ * Frequently used button ids in Open Ticket verify bars.
+ */
+export enum ODVerifyButtonId {
+    Cancel="cancel",
+    Accept="accept",
+    AcceptWithReason="accept-with-reason",
+    AcceptWithoutTranscript="accept-without-transcript"
 }
 
 /////////////////////////////

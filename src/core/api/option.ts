@@ -234,21 +234,21 @@ export class ODTicketOption extends ODOption {
         super(id,"opendiscord:ticket",data)
     }
 
-    get<OptionId extends keyof ODTicketOptionIdMappings>(id:OptionId): ODTicketOptionIdMappings[OptionId]
+    get<OptionId extends keyof api.ODNoGeneric<ODTicketOptionIdMappings>>(id:OptionId): ODTicketOptionIdMappings[OptionId]
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<OptionId extends keyof ODTicketOptionIdMappings>(id:OptionId): ODTicketOptionIdMappings[OptionId]
+    remove<OptionId extends keyof api.ODNoGeneric<ODTicketOptionIdMappings>>(id:OptionId): ODTicketOptionIdMappings[OptionId]
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODTicketOptionIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODTicketOptionIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {
@@ -274,21 +274,21 @@ export class ODWebsiteOption extends ODOption {
         super(id,"opendiscord:website",data)
     }
 
-    get<OptionId extends keyof ODWebsiteOptionIdMappings>(id:OptionId): ODWebsiteOptionIdMappings[OptionId]
+    get<OptionId extends keyof api.ODNoGeneric<ODWebsiteOptionIdMappings>>(id:OptionId): ODWebsiteOptionIdMappings[OptionId]
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<OptionId extends keyof ODWebsiteOptionIdMappings>(id:OptionId): ODWebsiteOptionIdMappings[OptionId]
+    remove<OptionId extends keyof api.ODNoGeneric<ODWebsiteOptionIdMappings>>(id:OptionId): ODWebsiteOptionIdMappings[OptionId]
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODWebsiteOptionIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODWebsiteOptionIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {
@@ -314,21 +314,21 @@ export class ODRoleOption extends ODOption {
         super(id,"opendiscord:role",data)
     }
 
-    get<OptionId extends keyof ODRoleOptionIdMappings>(id:OptionId): ODRoleOptionIdMappings[OptionId]
+    get<OptionId extends keyof api.ODNoGeneric<ODRoleOptionIdMappings>>(id:OptionId): ODRoleOptionIdMappings[OptionId]
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<OptionId extends keyof ODRoleOptionIdMappings>(id:OptionId): ODRoleOptionIdMappings[OptionId]
+    remove<OptionId extends keyof api.ODNoGeneric<ODRoleOptionIdMappings>>(id:OptionId): ODRoleOptionIdMappings[OptionId]
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODOptionData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODRoleOptionIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODRoleOptionIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {

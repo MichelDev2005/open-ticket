@@ -246,21 +246,21 @@ export class ODTicket extends api.ODManager<ODTicketData<api.ODValidJsonType>> {
         return new ODTicket(json.id,option,json.data.map((data) => new ODTicketData(data.id,data.value)))
     }
 
-    get<OptionId extends keyof ODTicketIdMappings>(id:OptionId): ODTicketIdMappings[OptionId]
+    get<OptionId extends keyof api.ODNoGeneric<ODTicketIdMappings>>(id:OptionId): ODTicketIdMappings[OptionId]
     get(id:api.ODValidId): ODTicketData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODTicketData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<OptionId extends keyof ODTicketIdMappings>(id:OptionId): ODTicketIdMappings[OptionId]
+    remove<OptionId extends keyof api.ODNoGeneric<ODTicketIdMappings>>(id:OptionId): ODTicketIdMappings[OptionId]
     remove(id:api.ODValidId): ODTicketData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODTicketData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODTicketIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODTicketIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {

@@ -21,7 +21,7 @@ import * as fjs from "formatted-json-stringify"
  * - Check (./src/builders), (./src/actions), (./src/data) & (./src/commands) in general in the areas that were changed.
  */
 
-export const loadAllConfigs = async () => {
+export async function loadAllConfigs(){
     const devconfigFlag = opendiscord.flags.get("opendiscord:dev-config")
     const isDevconfig = devconfigFlag ? devconfigFlag.value : false
     

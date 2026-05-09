@@ -6,8 +6,9 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
+const interactiveMsgState = opendiscord.states.get("opendiscord:interactive-message")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:close-ticket"))
     opendiscord.actions.get("opendiscord:close-ticket").workers.add([
         new api.ODWorker("opendiscord:close-ticket",2,async (instance,params,origin,cancel) => {

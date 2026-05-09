@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //BLACKLIST COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:blacklist",generalConfig.data.prefix,/^blacklist/))
     opendiscord.responders.commands.get("opendiscord:blacklist").workers.add([

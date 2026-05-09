@@ -9,7 +9,7 @@ import {opendiscord, api, utilities} from "../../index.js"
  * - Update the Open Ticket Documentation.
  */
 
-export const loadAllLanguages = async () => {
+export async function loadAllLanguages(){
     //register languages
     opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:custom","custom.json"))
     opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:english","english.json"))

@@ -168,21 +168,21 @@ export class ODShortQuestion extends ODQuestion {
         super(id,"opendiscord:short",data)
     }
 
-    get<QuestionId extends keyof ODShortQuestionIdMappings>(id:QuestionId): ODShortQuestionIdMappings[QuestionId]
+    get<QuestionId extends keyof api.ODNoGeneric<ODShortQuestionIdMappings>>(id:QuestionId): ODShortQuestionIdMappings[QuestionId]
     get(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<QuestionId extends keyof ODShortQuestionIdMappings>(id:QuestionId): ODShortQuestionIdMappings[QuestionId]
+    remove<QuestionId extends keyof api.ODNoGeneric<ODShortQuestionIdMappings>>(id:QuestionId): ODShortQuestionIdMappings[QuestionId]
     remove(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODShortQuestionIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODShortQuestionIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {
@@ -208,21 +208,21 @@ export class ODParagraphQuestion extends ODQuestion {
         super(id,"opendiscord:paragraph",data)
     }
 
-    get<QuestionId extends keyof ODParagraphQuestionIdMappings>(id:QuestionId): ODParagraphQuestionIdMappings[QuestionId]
+    get<QuestionId extends keyof api.ODNoGeneric<ODParagraphQuestionIdMappings>>(id:QuestionId): ODParagraphQuestionIdMappings[QuestionId]
     get(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<QuestionId extends keyof ODParagraphQuestionIdMappings>(id:QuestionId): ODParagraphQuestionIdMappings[QuestionId]
+    remove<QuestionId extends keyof api.ODNoGeneric<ODParagraphQuestionIdMappings>>(id:QuestionId): ODParagraphQuestionIdMappings[QuestionId]
     remove(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODQuestionData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODParagraphQuestionIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODParagraphQuestionIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {

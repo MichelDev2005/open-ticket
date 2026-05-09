@@ -1,6 +1,6 @@
 import {opendiscord, api, utilities} from "../../index.js"
 
-export const loadAllPosts = async () => {
+export async function loadAllPosts(){
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return
     const transcriptConfig = opendiscord.configs.get("opendiscord:transcripts")

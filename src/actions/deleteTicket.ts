@@ -7,7 +7,7 @@ import * as discord from "discord.js"
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:delete-ticket"))
     opendiscord.actions.get("opendiscord:delete-ticket").workers.add([
         new api.ODWorker("opendiscord:delete-ticket",3,async (instance,params,origin,cancel) => {
@@ -115,7 +115,7 @@ export const registerActions = async () => {
     })
 }
 
-export const registerVerifyBars = async () => {
+export async function registerVerifyBars(){
     //DELETE TICKET TICKET MESSAGE
     opendiscord.verifybars.add(new api.ODVerifyBar("opendiscord:delete-ticket-ticket-message",opendiscord.builders.messages.getSafe("opendiscord:verifybar-ticket-message"),!generalConfig.data.system.disableVerifyBars))
     opendiscord.verifybars.get("opendiscord:delete-ticket-ticket-message").success.add([

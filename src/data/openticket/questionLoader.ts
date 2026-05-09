@@ -1,6 +1,6 @@
 import {opendiscord, api, utilities} from "../../index.js"
 
-export const loadAllQuestions = async () => {
+export async function loadAllQuestions(){
     const questionConfig = opendiscord.configs.get("opendiscord:questions")
     if (!questionConfig) return
     

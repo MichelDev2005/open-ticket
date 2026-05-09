@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const transcriptConfig = opendiscord.configs.get("opendiscord:transcripts")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:create-transcript"))
     opendiscord.actions.get("opendiscord:create-transcript").workers.add([
         new api.ODWorker("opendiscord:select-compiler",4,async (instance,params,origin,cancel) => {

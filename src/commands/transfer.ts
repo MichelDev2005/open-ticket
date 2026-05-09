@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //TRANSFER COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:transfer",generalConfig.data.prefix,"transfer"))
     opendiscord.responders.commands.get("opendiscord:transfer").workers.add([

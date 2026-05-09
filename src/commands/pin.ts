@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //PIN COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:pin",generalConfig.data.prefix,"pin"))
     opendiscord.responders.commands.get("opendiscord:pin").workers.add([
@@ -97,7 +97,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //PIN TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:pin-ticket",/^od:pin-ticket/))
     opendiscord.responders.buttons.get("opendiscord:pin-ticket").workers.add(
@@ -111,7 +111,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //PIN WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:pin-ticket-reason",/^od:pin-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:pin-ticket-reason").workers.add([

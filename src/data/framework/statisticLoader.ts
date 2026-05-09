@@ -4,7 +4,7 @@ import * as discord from "discord.js"
 const stats = opendiscord.statistics
 const lang = opendiscord.languages
 
-export const loadAllStatisticScopes = async () => {
+export async function loadAllStatisticScopes(){
     stats.add(new api.ODStatisticGlobalScope("opendiscord:global",utilities.emojiTitle("📊",lang.getTranslation("stats.scopes.global"))))
     stats.add(new api.ODStatisticGlobalScope("opendiscord:system",utilities.emojiTitle("⚙️",lang.getTranslation("stats.scopes.system"))))
     stats.add(new api.ODStatisticScope("opendiscord:user",utilities.emojiTitle("📊",lang.getTranslation("stats.scopes.user"))))
@@ -13,7 +13,7 @@ export const loadAllStatisticScopes = async () => {
     stats.add(new api.ODStatisticScope("opendiscord:messages",utilities.emojiTitle("💬",lang.getTranslation("stats.scopes.messages"))))
 }
 
-export const loadAllStatistics = async () => {
+export async function loadAllStatistics(){
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return
 

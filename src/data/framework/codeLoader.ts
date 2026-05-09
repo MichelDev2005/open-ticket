@@ -9,7 +9,7 @@ const statsDatabase = opendiscord.databases.get("opendiscord:stats")
 const optionDatabase = opendiscord.databases.get("opendiscord:options")
 const mainServer = opendiscord.client.mainServer
 
-export const loadAllCode = async () => {
+export async function loadAllCode(){
     if (!generalConfig || !mainServer || !globalDatabase || !userDatabase || !ticketDatabase || !statsDatabase || !optionDatabase) return
 
     loadCommandErrorHandlingCode()
@@ -20,7 +20,7 @@ export const loadAllCode = async () => {
     loadAutoCode()
 }
 
-export const loadCommandErrorHandlingCode = async () => {
+export async function loadCommandErrorHandlingCode(){
     //COMMAND ERROR HANDLING
     opendiscord.code.add(new api.ODCode("opendiscord:command-error-handling",14,() => {
         //invalid/missing options
@@ -56,7 +56,7 @@ export const loadCommandErrorHandlingCode = async () => {
     }))
 }
 
-export const loadStartListeningInteractionsCode = async () => {
+export async function loadStartListeningInteractionsCode(){
     //START LISTENING TO INTERACTIONS
     opendiscord.code.add(new api.ODCode("opendiscord:start-listening-interactions",13,() => {
         opendiscord.client.slashCommands.startListeningToInteractions()
@@ -66,7 +66,7 @@ export const loadStartListeningInteractionsCode = async () => {
     }))
 }
 
-export const loadDatabaseCleanersCode = async () => {
+export async function loadDatabaseCleanersCode(){
     if (!mainServer) return
 
     //PANEL DATABASE CLEANER
@@ -282,7 +282,7 @@ export const loadDatabaseCleanersCode = async () => {
     }))
 }
 
-export const loadPanelAutoUpdateCode = async () => {
+export async function loadPanelAutoUpdateCode(){
     //PANEL AUTO UPDATE
     opendiscord.code.add(new api.ODCode("opendiscord:panel-auto-update",7,async () => {
         const globalDatabase = opendiscord.databases.get("opendiscord:global")
@@ -316,7 +316,7 @@ export const loadPanelAutoUpdateCode = async () => {
     }))
 }
 
-export const loadDatabaseSaversCode = async () => {
+export async function loadDatabaseSaversCode(){
     //TICKET SAVER
     opendiscord.code.add(new api.ODCode("opendiscord:ticket-saver",6,() => {
         const mainVersion = opendiscord.versions.get("opendiscord:version")

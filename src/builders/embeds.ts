@@ -9,7 +9,7 @@ const embeds = opendiscord.builders.embeds
 const lang = opendiscord.languages
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerAllEmbeds = async () => {
+export async function registerAllEmbeds(){
     errorEmbeds()
     helpMenuEmbeds()
     statsEmbeds()

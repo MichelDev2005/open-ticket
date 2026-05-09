@@ -13,7 +13,7 @@ const lang = opendiscord.languages
  * - Check all files, test the bot carefully & try a lot of different scenario's with different settings.
  */
 
-export const loadAllSlashCommands = async () => {
+export async function loadAllSlashCommands(){
     const commands = opendiscord.client.slashCommands
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return
@@ -642,7 +642,7 @@ export const loadAllSlashCommands = async () => {
     }))
 }
 
-export const loadAllTextCommands = async () => {
+export async function loadAllTextCommands(){
     const commands = opendiscord.client.textCommands
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return
@@ -1216,7 +1216,7 @@ export const loadAllTextCommands = async () => {
     }))
 }
 
-export const loadAllContextMenus = async () => {
+export async function loadAllContextMenus(){
     const menus = opendiscord.client.contextMenus
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return

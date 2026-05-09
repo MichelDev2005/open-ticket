@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:add-ticket-user"))
     opendiscord.actions.get("opendiscord:add-ticket-user").workers.add([
         new api.ODWorker("opendiscord:add-ticket-user",2,async (instance,params,origin,cancel) => {

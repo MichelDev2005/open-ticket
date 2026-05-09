@@ -3,7 +3,7 @@ import * as discord from "discord.js"
 
 const lang = opendiscord.languages
 
-export const loadAllPanels = async () => {
+export async function loadAllPanels(){
     const panelConfig = opendiscord.configs.get("opendiscord:panels")
     if (!panelConfig) return
 

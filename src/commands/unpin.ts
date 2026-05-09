@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //UNPIN COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:unpin",generalConfig.data.prefix,"unpin"))
     opendiscord.responders.commands.get("opendiscord:unpin").workers.add([
@@ -64,7 +64,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //UNPIN TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:unpin-ticket",/^od:unpin-ticket/))
     opendiscord.responders.buttons.get("opendiscord:unpin-ticket").workers.add(
@@ -78,7 +78,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //UNPIN WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:unpin-ticket-reason",/^od:unpin-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:unpin-ticket-reason").workers.add([

@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //HELP COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:help",generalConfig.data.prefix,"help"))
     opendiscord.responders.commands.get("opendiscord:help").workers.add([
@@ -40,7 +40,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //HELP MENU SWITCH BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:help-menu-switch",/^od:help-menu-switch_(slash|text)/))
     opendiscord.responders.buttons.get("opendiscord:help-menu-switch").workers.add(

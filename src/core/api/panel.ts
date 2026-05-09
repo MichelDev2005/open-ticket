@@ -112,21 +112,21 @@ export class ODPanel extends api.ODManager<ODPanelData<api.ODValidJsonType>> {
         return new ODPanel(json.id,json.data.map((data) => new ODPanelData(data.id,data.value)))
     }
 
-    get<PanelId extends keyof ODPanelIdMappings>(id:PanelId): ODPanelIdMappings[PanelId]
+    get<PanelId extends keyof api.ODNoGeneric<ODPanelIdMappings>>(id:PanelId): ODPanelIdMappings[PanelId]
     get(id:api.ODValidId): ODPanelData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODPanelData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<PanelId extends keyof ODPanelIdMappings>(id:PanelId): ODPanelIdMappings[PanelId]
+    remove<PanelId extends keyof api.ODNoGeneric<ODPanelIdMappings>>(id:PanelId): ODPanelIdMappings[PanelId]
     remove(id:api.ODValidId): ODPanelData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODPanelData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODPanelIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODPanelIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {

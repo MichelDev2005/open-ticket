@@ -1,6 +1,6 @@
 import {opendiscord, api, utilities} from "../../index.js"
 
-export const loadAllOptions = async () => {
+export async function loadAllOptions(){
     const optionConfig = opendiscord.configs.get("opendiscord:options")
     if (!optionConfig) return
     

@@ -1,7 +1,7 @@
 import {opendiscord, api, utilities} from "../../index.js"
 
-export const loadAllStates = async () => {
+export async function loadAllStates(){
     const stateDatabase = opendiscord.databases.get("opendiscord:message-states")
 
-    opendiscord.states.add(new api.ODMessageOriginState("opendiscord:message-origin",opendiscord.client,stateDatabase,{}))
+    opendiscord.states.add(new api.ODInteractiveMessageState("opendiscord:interactive-message",opendiscord.client,stateDatabase,{}))
 }

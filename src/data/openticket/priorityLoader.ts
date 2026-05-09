@@ -2,7 +2,7 @@ import {opendiscord, api, utilities} from "../../index.js"
 
 const lang = opendiscord.languages
 
-export const loadAllPriorityLevels = async () => {
+export async function loadAllPriorityLevels(){
     opendiscord.priorities.add(new api.ODPriorityLevel("opendiscord:urgent",5,"urgent",lang.getTranslation("priorities.urgent"),"🔴","🔴"))
     opendiscord.priorities.add(new api.ODPriorityLevel("opendiscord:very-high",4,"very-high",lang.getTranslation("priorities.veryHigh"),"🟠","🟠"))
     opendiscord.priorities.add(new api.ODPriorityLevel("opendiscord:high",3,"high",lang.getTranslation("priorities.high"),"🟡","🟡"))

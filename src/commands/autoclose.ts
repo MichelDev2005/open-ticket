@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //AUTOCLOSE COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:autoclose",generalConfig.data.prefix,/^autoclose/))
     opendiscord.responders.commands.get("opendiscord:autoclose").workers.add([

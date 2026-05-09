@@ -7,7 +7,7 @@ import * as discord from "discord.js"
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //CLOSE COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:close",generalConfig.data.prefix,"close"))
     opendiscord.responders.commands.get("opendiscord:close").workers.add([
@@ -91,7 +91,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //CLOSE WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:close-ticket-reason",/^od:close-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:close-ticket-reason").workers.add([

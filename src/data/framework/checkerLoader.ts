@@ -22,7 +22,7 @@ const generalConfig = opendiscord.configs.get("opendiscord:general")
  * - Check (./src/builders), (./src/actions), (./src/data) & (./src/commands) in general in the areas that were changed.
  */
 
-export const loadAllConfigCheckers = async () => {
+export async function loadAllConfigCheckers(){
     opendiscord.checkers.add(new api.ODChecker("opendiscord:general",opendiscord.checkers.storage,0,opendiscord.configs.get("opendiscord:general"),defaultGeneralStructure,{cliDisplayName:"General Config",cliDisplayDescription:"Configure the bot token, status, colors, permissions & more."}))
     opendiscord.checkers.add(new api.ODChecker("opendiscord:questions",opendiscord.checkers.storage,2,opendiscord.configs.get("opendiscord:questions"),defaultQuestionsStructure,{cliDisplayName:"Questions Config",cliDisplayDescription:"Create, modify & delete questions which are used in options."}))
     opendiscord.checkers.add(new api.ODChecker("opendiscord:options",opendiscord.checkers.storage,1,opendiscord.configs.get("opendiscord:options"),defaultOptionsStructure,{cliDisplayName:"Options Config",cliDisplayDescription:"Create, modify & delete options which are used in panels."}))
@@ -30,13 +30,13 @@ export const loadAllConfigCheckers = async () => {
     opendiscord.checkers.add(new api.ODChecker("opendiscord:transcripts",opendiscord.checkers.storage,0,opendiscord.configs.get("opendiscord:transcripts"),defaultTranscriptsStructure,{cliDisplayName:"Transcript Config",cliDisplayDescription:"Configure everything related to transcripts."}))
 }
 
-export const loadAllConfigCheckerFunctions = async () => {
+export async function loadAllConfigCheckerFunctions(){
     opendiscord.checkers.functions.add(new api.ODCheckerFunction("opendiscord:unused-options",defaultUnusedOptionsFunction))
     opendiscord.checkers.functions.add(new api.ODCheckerFunction("opendiscord:unused-questions",defaultUnusedQuestionsFunction))
     opendiscord.checkers.functions.add(new api.ODCheckerFunction("opendiscord:dropdown-options",defaultDropdownOptionsFunction))
 }
 
-export const loadAllConfigCheckerTranslations = async () => {
+export async function loadAllConfigCheckerTranslations(){
     if ((generalConfig && generalConfig.data.system && generalConfig.data.system.useTranslatedConfigChecker) ? generalConfig.data.system.useTranslatedConfigChecker : false){
         registerDefaultCheckerSystemTranslations(opendiscord.checkers.translation,opendiscord.languages) //translate checker system text
         registerDefaultCheckerMessageTranslations(opendiscord.checkers.translation,opendiscord.languages) //translate checker messages

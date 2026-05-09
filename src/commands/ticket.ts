@@ -25,7 +25,7 @@ async function checkTicketCreationPerms(instance:api.ODButtonResponderInstance|a
     }else return true
 }
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //TICKET COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:ticket",generalConfig.data.prefix,/^ticket/))
     opendiscord.responders.commands.get("opendiscord:ticket").workers.add([
@@ -85,7 +85,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //TICKET OPTION BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:ticket-option",/^od:ticket-option_/))
     opendiscord.responders.buttons.get("opendiscord:ticket-option").workers.add(
@@ -129,7 +129,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerDropdownResponders = async () => {
+export async function registerDropdownResponders(){
     //PANEL DROPDOWN TICKETS DROPDOWN RESPONDER
     opendiscord.responders.dropdowns.add(new api.ODDropdownResponder("opendiscord:panel-dropdown-tickets",/^od:panel-dropdown_/))
     opendiscord.responders.dropdowns.get("opendiscord:panel-dropdown-tickets").workers.add(
@@ -181,7 +181,7 @@ export const registerDropdownResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //TICKET QUESTIONS RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:ticket-questions",/^od:ticket-questions_/))
     opendiscord.responders.modals.get("opendiscord:ticket-questions").workers.add([

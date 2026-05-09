@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:unclaim-ticket"))
     opendiscord.actions.get("opendiscord:unclaim-ticket").workers.add([
         new api.ODWorker("opendiscord:unclaim-ticket",2,async (instance,params,origin,cancel) => {
@@ -126,7 +126,7 @@ export const registerActions = async () => {
     ])
 }
 
-export const registerVerifyBars = async () => {
+export async function registerVerifyBars(){
     //UNCLAIM TICKET TICKET MESSAGE
     opendiscord.verifybars.add(new api.ODVerifyBar("opendiscord:unclaim-ticket-ticket-message",opendiscord.builders.messages.getSafe("opendiscord:verifybar-ticket-message"),!generalConfig.data.system.disableVerifyBars))
     opendiscord.verifybars.get("opendiscord:unclaim-ticket-ticket-message").success.add([

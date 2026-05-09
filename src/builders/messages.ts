@@ -12,7 +12,7 @@ const embeds = opendiscord.builders.embeds
 const lang = opendiscord.languages
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerAllMessages = async () => {
+export async function registerAllMessages(){
     verifyBarMessages()
     errorMessages()
     helpMenuMessages()

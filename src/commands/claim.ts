@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //CLAIM COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:claim",generalConfig.data.prefix,"claim"))
     opendiscord.responders.commands.get("opendiscord:claim").workers.add([
@@ -65,7 +65,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //CLAIM TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:claim-ticket",/^od:claim-ticket/))
     opendiscord.responders.buttons.get("opendiscord:claim-ticket").workers.add(
@@ -79,7 +79,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //CLAIM WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:claim-ticket-reason",/^od:claim-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:claim-ticket-reason").workers.add([

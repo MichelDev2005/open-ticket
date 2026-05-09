@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const dropdowns = opendiscord.builders.dropdowns
 
-export const registerAllDropdowns = async () => {
+export async function registerAllDropdowns(){
     panelDropdowns()
 }
 

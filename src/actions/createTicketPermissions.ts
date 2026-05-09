@@ -4,7 +4,7 @@
 import {opendiscord, api, utilities} from "../index.js"
 import * as discord from "discord.js"
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:create-ticket-permissions"))
     opendiscord.actions.get("opendiscord:create-ticket-permissions").workers.add([
         new api.ODWorker("opendiscord:check-blacklist",4,(instance,params,origin,cancel) => {

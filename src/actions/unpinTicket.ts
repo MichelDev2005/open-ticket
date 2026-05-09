@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:unpin-ticket"))
     opendiscord.actions.get("opendiscord:unpin-ticket").workers.add([
         new api.ODWorker("opendiscord:unpin-ticket",2,async (instance,params,origin,cancel) => {
@@ -87,7 +87,7 @@ export const registerActions = async () => {
     ])
 }
 
-export const registerVerifyBars = async () => {
+export async function registerVerifyBars(){
     //UNPIN TICKET TICKET MESSAGE
     opendiscord.verifybars.add(new api.ODVerifyBar("opendiscord:unpin-ticket-ticket-message",opendiscord.builders.messages.getSafe("opendiscord:verifybar-ticket-message"),!generalConfig.data.system.disableVerifyBars))
     opendiscord.verifybars.get("opendiscord:unpin-ticket-ticket-message").success.add([

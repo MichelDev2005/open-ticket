@@ -7,7 +7,7 @@ import * as discord from "discord.js"
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:update-ticket-topic"))
     opendiscord.actions.get("opendiscord:update-ticket-topic").workers.add([
         new api.ODWorker("opendiscord:update-ticket-topic",2,async (instance,params,origin,cancel) => {

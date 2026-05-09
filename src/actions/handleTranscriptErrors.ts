@@ -5,7 +5,7 @@ import {opendiscord, api, utilities} from "../index.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //TRANSCRIPT ERROR RETRY
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:transcript-error-retry",/^od:transcript-error-retry_([^_]+)/))
     opendiscord.responders.buttons.get("opendiscord:transcript-error-retry").workers.add([

@@ -2,7 +2,7 @@ import {opendiscord, api, utilities} from "../../index.js"
 
 const optionDatabase = opendiscord.databases.get("opendiscord:options")
 
-export const loadAllTickets = async () => {
+export async function loadAllTickets(){
     const ticketDatabase = opendiscord.databases.get("opendiscord:tickets")
     if (!ticketDatabase) return
 

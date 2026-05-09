@@ -7,7 +7,7 @@ import * as discord from "discord.js"
 const modals = opendiscord.builders.modals
 const lang = opendiscord.languages
 
-export const registerAllModals = async () => {
+export async function registerAllModals(){
     ticketModals()
 }
 const ticketModals = () => {

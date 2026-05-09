@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //AUTODELETE COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:autodelete",generalConfig.data.prefix,/^autodelete/))
     opendiscord.responders.commands.get("opendiscord:autodelete").workers.add([

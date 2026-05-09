@@ -100,21 +100,21 @@ export class ODRole extends api.ODManager<ODRoleData<api.ODValidJsonType>> {
         return new ODRole(json.id,json.data.map((data) => new ODRoleData(data.id,data.value)))
     }
 
-    get<OptionId extends keyof ODRoleIdMappings>(id:OptionId): ODRoleIdMappings[OptionId]
+    get<OptionId extends keyof api.ODNoGeneric<ODRoleIdMappings>>(id:OptionId): ODRoleIdMappings[OptionId]
     get(id:api.ODValidId): ODRoleData<api.ODValidJsonType>|null
     
     get(id:api.ODValidId): ODRoleData<api.ODValidJsonType>|null {
         return super.get(id)
     }
 
-    remove<OptionId extends keyof ODRoleIdMappings>(id:OptionId): ODRoleIdMappings[OptionId]
+    remove<OptionId extends keyof api.ODNoGeneric<ODRoleIdMappings>>(id:OptionId): ODRoleIdMappings[OptionId]
     remove(id:api.ODValidId): ODRoleData<api.ODValidJsonType>|null
     
     remove(id:api.ODValidId): ODRoleData<api.ODValidJsonType>|null {
         return super.remove(id)
     }
 
-    exists(id:keyof ODRoleIdMappings): boolean
+    exists(id:keyof api.ODNoGeneric<ODRoleIdMappings>): boolean
     exists(id:api.ODValidId): boolean
     
     exists(id:api.ODValidId): boolean {

@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //ROLE OPTION BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:role-option",/^od:role-option_/))
     opendiscord.responders.buttons.get("opendiscord:role-option").workers.add(

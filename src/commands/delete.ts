@@ -7,7 +7,7 @@ import * as discord from "discord.js"
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //DELETE COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:delete",generalConfig.data.prefix,"delete"))
     opendiscord.responders.commands.get("opendiscord:delete").workers.add([
@@ -81,7 +81,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //DELETE TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:delete-ticket",/^od:delete-ticket/))
     opendiscord.responders.buttons.get("opendiscord:delete-ticket").workers.add(
@@ -97,7 +97,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //REOPEN WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:delete-ticket-reason",/^od:delete-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:delete-ticket-reason").workers.add([

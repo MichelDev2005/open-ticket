@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //UNCLAIM COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:unclaim",generalConfig.data.prefix,"unclaim"))
     opendiscord.responders.commands.get("opendiscord:unclaim").workers.add([
@@ -64,7 +64,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //UNCLAIM TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:unclaim-ticket",/^od:unclaim-ticket/))
     opendiscord.responders.buttons.get("opendiscord:unclaim-ticket").workers.add(
@@ -78,7 +78,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //UNCLAIM WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:unclaim-ticket-reason",/^od:unclaim-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:unclaim-ticket-reason").workers.add([

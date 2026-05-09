@@ -8,7 +8,7 @@ const files = opendiscord.builders.files
 const lang = opendiscord.languages
 const transcriptConfig = opendiscord.configs.get("opendiscord:transcripts")
 
-export const registerAllFiles = async () => {
+export async function registerAllFiles(){
     transcriptFiles()
 }
 

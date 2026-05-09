@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //CLEAR COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:clear",generalConfig.data.prefix,"clear"))
     opendiscord.responders.commands.get("opendiscord:clear").workers.add([
@@ -61,7 +61,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //CLEAR CONTINUE BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:clear-continue",/^od:clear-continue_/))
     opendiscord.responders.buttons.get("opendiscord:clear-continue").workers.add(

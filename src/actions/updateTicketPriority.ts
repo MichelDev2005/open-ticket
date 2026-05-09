@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:update-ticket-priority"))
     opendiscord.actions.get("opendiscord:update-ticket-priority").workers.add([
         new api.ODWorker("opendiscord:update-ticket-priority",2,async (instance,params,origin,cancel) => {

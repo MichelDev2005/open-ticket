@@ -1,6 +1,6 @@
 import {opendiscord, api, utilities} from "../../index.js"
 
-export const loadAllProgressBarRenderers = async () => {
+export async function loadAllProgressBarRenderers(){
     const defaultSettings: api.ODDefaultProgressBarRendererSettings = {
         borderColor:"gray",
         filledBarColor:"openticket",
@@ -53,7 +53,7 @@ export const loadAllProgressBarRenderers = async () => {
     opendiscord.progressbars.renderers.add(new api.ODDefaultProgressBarRenderer("opendiscord:time-min-renderer",timeMinRendererSettings))
 }
 
-export const loadAllProgressBars = async () => {
+export async function loadAllProgressBars(){
     const fractRenderer = opendiscord.progressbars.renderers.get("opendiscord:fraction-renderer")
 
     //SLASH COMMAND REMOVE (doesn't have correct amount yet)

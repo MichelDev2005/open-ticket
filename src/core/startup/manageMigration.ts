@@ -20,7 +20,7 @@ async function saveAllVersionsToDatabase(){
     })
 }
 
-export const loadVersionMigrationSystem = async () => {
+export async function loadVersionMigrationSystem(){
     //ENTER MIGRATION CONTEXT
     await preloadMigrationContext()
 

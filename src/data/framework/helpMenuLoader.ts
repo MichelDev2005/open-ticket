@@ -12,7 +12,7 @@ const lang = opendiscord.languages
  * - Check all files, test the bot carefully & try a lot of different scenario's with different settings.
  */
 
-export const loadAllHelpMenuCategories = async () => {
+export async function loadAllHelpMenuCategories(){
     const helpmenu = opendiscord.helpmenu
 
     helpmenu.add(new api.ODHelpMenuCategory("opendiscord:general",5,utilities.emojiTitle("📎",lang.getTranslation("helpMenu.categories.general"))))
@@ -24,7 +24,7 @@ export const loadAllHelpMenuCategories = async () => {
     helpmenu.add(new api.ODHelpMenuCategory("opendiscord:extra",0,utilities.emojiTitle("✨",lang.getTranslation("helpMenu.categories.extra"))))
 }
 
-export const loadAllHelpMenuComponents = async () => {
+export async function loadAllHelpMenuComponents(){
     const helpmenu = opendiscord.helpmenu
     const generalConfig = opendiscord.configs.get("opendiscord:general")
     if (!generalConfig) return

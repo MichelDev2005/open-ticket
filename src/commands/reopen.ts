@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerCommandResponders = async () => {
+export async function registerCommandResponders(){
     //REOPEN COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:reopen",generalConfig.data.prefix,"reopen"))
     opendiscord.responders.commands.get("opendiscord:reopen").workers.add([
@@ -64,7 +64,7 @@ export const registerCommandResponders = async () => {
     ])
 }
 
-export const registerButtonResponders = async () => {
+export async function registerButtonResponders(){
     //REOPEN TICKET BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:reopen-ticket",/^od:reopen-ticket/))
     opendiscord.responders.buttons.get("opendiscord:reopen-ticket").workers.add(
@@ -79,7 +79,7 @@ export const registerButtonResponders = async () => {
     )
 }
 
-export const registerModalResponders = async () => {
+export async function registerModalResponders(){
     //REOPEN WITH REASON MODAL RESPONDER
     opendiscord.responders.modals.add(new api.ODModalResponder("opendiscord:reopen-ticket-reason",/^od:reopen-ticket-reason_/))
     opendiscord.responders.modals.get("opendiscord:reopen-ticket-reason").workers.add([

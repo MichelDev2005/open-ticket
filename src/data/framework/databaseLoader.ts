@@ -4,7 +4,7 @@ import * as fjs from "formatted-json-stringify"
 const devdatabaseFlag = opendiscord.flags.get("opendiscord:dev-database")
 const isDevdatabase = devdatabaseFlag ? devdatabaseFlag.value : false
 
-export const loadAllDatabases = async () => {
+export async function loadAllDatabases(){
     opendiscord.databases.add(defaultGlobalDatabase)
     opendiscord.databases.add(defaultStatsDatabase)
     opendiscord.databases.add(defaultTicketsDatabase)

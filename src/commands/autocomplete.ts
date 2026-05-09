@@ -4,7 +4,7 @@
 import {opendiscord, api, utilities} from "../index.js"
 import * as discord from "discord.js"
 
-export const registerAutocompleteResponders = async () => {
+export async function registerAutocompleteResponders(){
     //PANEL ID AUTOCOMPLETE
     opendiscord.responders.autocomplete.add(new api.ODAutocompleteResponder("opendiscord:panel-id","panel","id"))
     opendiscord.responders.autocomplete.get("opendiscord:panel-id").workers.add(new api.ODWorker("opendiscord:panel-id",0,async (instance,params,origin,cancel) => {

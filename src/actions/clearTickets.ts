@@ -6,7 +6,7 @@ import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
 
-export const registerActions = async () => {
+export async function registerActions(){
     opendiscord.actions.add(new api.ODAction("opendiscord:clear-tickets"))
     opendiscord.actions.get("opendiscord:clear-tickets").workers.add([
         new api.ODWorker("opendiscord:clear-tickets",2,async (instance,params,origin,cancel) => {
