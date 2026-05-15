@@ -39,55 +39,26 @@ export async function registerActions(){
             await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-reopened",1,"increase")
             await opendiscord.statistics.get("opendiscord:user").setStat("opendiscord:tickets-reopened",user.id,1,"increase")
 
-            //update category
+            //calculate & update category
             if (typeof params.allowCategoryChange == "boolean" ? params.allowCategoryChange : true){
-                const channelCategory = ticket.option.get("opendiscord:channel-category").value
-                const channelBackupCategory = ticket.option.get("opendiscord:channel-category-backup").value
-                if (channelCategory !== ""){
-                    //category enabled
-                    try {
-                        const normalCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelCategory)
-                        if (!normalCategory){
-                            //default category was not found
-                            opendiscord.log("Ticket Reopening Error: Unable to find category! #1","error",[
-                                {key:"categoryid",value:channelCategory},
-                                {key:"backup",value:"false"}
-                            ])
-                        }else{
-                            //default category was found
-                            if (normalCategory.children.cache.size >= 49 && channelBackupCategory != ""){
-                                //use backup category
-                                const backupCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelBackupCategory)
-                                if (!backupCategory){
-                                    //default category was not found
-                                    opendiscord.log("Ticket Reopening Error: Unable to find category! #2","error",[
-                                        {key:"categoryid",value:channelBackupCategory},
-                                        {key:"backup",value:"true"}
-                                    ])
-                                }else{
-                                    //use backup category
-                                    channel.setParent(backupCategory,{lockPermissions:false})
-                                    ticket.get("opendiscord:category-mode").value = "backup"
-                                    ticket.get("opendiscord:category").value = backupCategory.id
-                                }
-                            }else{
-                                //use default category
-                                channel.setParent(normalCategory,{lockPermissions:false})
-                                ticket.get("opendiscord:category-mode").value = "normal"
-                                ticket.get("opendiscord:category").value = normalCategory.id
-                            }
-                        }
-                    }catch(e){
-                        opendiscord.log("Unable to move ticket to 'reopened category'!","error",[
+                const categoryResult = await opendiscord.actions.get("opendiscord:calculate-ticket-category").run("reopen-ticket",{guild,user,option:ticket.option,channel,ticket,currentCategoryId:channel.parentId})
+                if (categoryResult && categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryId !== "undefined" && typeof categoryResult.newCategoryMode !== "undefined" && typeof categoryResult.newCategory !== "undefined"){
+                    const originalCategoryName = channel.parent?.name ?? "<unknown>"
+                    const newCategoryName = categoryResult.newCategory?.name ?? "<unknown>"
+                    try{
+                        await utilities.timedAwait(channel.setParent(categoryResult.newCategoryId,{lockPermissions:false}),3000,(err) => {
+                            process.emit("uncaughtException",new Error("Error: Unable to change channel parent: "+err))
+                        })
+                        ticket.get("opendiscord:category-mode").value = categoryResult.newCategoryMode
+                        ticket.get("opendiscord:category").value = categoryResult.newCategoryId
+                    }catch(err){
+                        await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-channel-category").build("ticket-reopen",{guild,channel,user,originalCategory:originalCategoryName,newCategory:newCategoryName})).message)
+                        opendiscord.log("Unable to move ticket to reopened category.","error",[
                             {key:"channel",value:"#"+channel.name},
                             {key:"channelid",value:channel.id,hidden:true},
+                            {key:"categoryid",value:categoryResult.newCategoryId ?? "/"}
                         ])
-                        opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
                     }
-                }else{
-                    channel.setParent(null,{lockPermissions:false})
-                    ticket.get("opendiscord:category-mode").value = null
-                    ticket.get("opendiscord:category").value = null
                 }
             }
 

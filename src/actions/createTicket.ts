@@ -19,46 +19,15 @@ export async function registerActions(){
 
             //get channel properties
             const channelPrefix = option.get("opendiscord:channel-prefix").value
-            const channelCategory = option.get("opendiscord:channel-category").value
-            const channelBackupCategory = option.get("opendiscord:channel-category-backup").value
             const channelTopicText = option.get("opendiscord:channel-topic").value
             const channelSuffix = await opendiscord.options.suffix.getSuffixFromOption(option,user,guild)
             const channelName = channelPrefix+channelSuffix
 
-            //handle category
-            let category: string|null = null
-            let categoryMode: "backup"|"normal"|null = null
-            if (channelCategory != ""){
-                //category enabled
-                const normalCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelCategory)
-                if (!normalCategory){
-                    //default category was not found
-                    opendiscord.log("Ticket Creation Error: Unable to find category! #1","error",[
-                        {key:"categoryid",value:channelCategory},
-                        {key:"backup",value:"false"}
-                    ])
-                }else{
-                    //default category was found
-                    if (normalCategory.children.cache.size >= 50 && channelBackupCategory != ""){
-                        //use backup category
-                        const backupCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelBackupCategory)
-                        if (!backupCategory){
-                            //default category was not found
-                            opendiscord.log("Ticket Creation Error: Unable to find category! #2","error",[
-                                {key:"categoryid",value:channelBackupCategory},
-                                {key:"backup",value:"true"}
-                            ])
-                        }else{
-                            category = backupCategory.id
-                            categoryMode = "backup"
-                        }
-                    }else{
-                        //use default category
-                        category = normalCategory.id
-                        categoryMode = "normal"
-                    }
-                }
-            }
+            //calculate category
+            const categoryResult = await opendiscord.actions.get("opendiscord:calculate-ticket-category").run("create-ticket",{guild,user,option,channel:null,ticket:null,currentCategoryId:null})
+            if (!categoryResult) return opendiscord.log("Ticket Creation Error: Unable to calculate ticket category.","error")
+            const ticketCategoryId = (categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryId !== "undefined") ? categoryResult.newCategoryId : undefined
+            const ticketCategoryMode = (categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryMode !== "undefined") ? categoryResult.newCategoryMode : undefined
 
             //handle permissions
             const permissions: discord.OverwriteResolvable[] = [{
@@ -135,7 +104,7 @@ export async function registerActions(){
                 name:channelName,
                 nsfw:false,
                 topic:(channelTopics.length > 0) ? channelTopics.join(" • ") : undefined,
-                parent:category,
+                parent:ticketCategoryId,
                 reason:"Ticket Created By "+user.displayName,
                 permissionOverwrites:permissions,
                 rateLimitPerUser:slowMode
@@ -168,8 +137,8 @@ export async function registerActions(){
                 new api.ODTicketData("opendiscord:pinned-on",null),
                 new api.ODTicketData("opendiscord:for-deletion",false),
 
-                new api.ODTicketData("opendiscord:category",category),
-                new api.ODTicketData("opendiscord:category-mode",categoryMode),
+                new api.ODTicketData("opendiscord:category",ticketCategoryId ?? null),
+                new api.ODTicketData("opendiscord:category-mode",ticketCategoryMode ?? null),
 
                 new api.ODTicketData("opendiscord:autoclose-enabled",option.get("opendiscord:autoclose-enable-hours").value),
                 new api.ODTicketData("opendiscord:autoclose-hours",(option.get("opendiscord:autoclose-enable-hours").value ? option.get("opendiscord:autoclose-hours").value : 0)),

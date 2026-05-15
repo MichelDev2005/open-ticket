@@ -128,6 +128,12 @@ export interface ODActionManagerIdMappings extends api.ODActionManagerIdConstrai
         result:{},
         workers:"opendiscord:transfer-ticket"|"opendiscord:discord-logs"|"opendiscord:logs"
     },
+    "opendiscord:calculate-ticket-category":{
+        origin:"create-ticket"|"close-ticket"|"reopen-ticket"|"claim-ticket"|"unclaim-ticket"|"move-ticket"|"other",
+        params:{guild:discord.Guild,channel:discord.GuildTextBasedChannel|null,user:discord.User,option:ODTicketOption,ticket:ODTicket|null,currentCategoryId:string|null},
+        result:{newCategoryId:string|null,newCategoryMode:string|null,newCategory:discord.CategoryChannel|null,shouldChangeCategory:boolean},
+        workers:"opendiscord:default-category"|"opendiscord:close-category"|"opendiscord:claim-category"|"opendiscord:backup-category"
+    },
 }
 
 /////////////////////////////

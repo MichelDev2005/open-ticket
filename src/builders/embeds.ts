@@ -336,10 +336,34 @@ const errorEmbeds = () => {
             instance.setTitle(utilities.emojiTitle("❌",lang.getTranslation("errors.titles.channelRename")))
             instance.setAuthor(user.displayName,user.displayAvatarURL())
             instance.setDescription(lang.getTranslation("errors.descriptions.channelRename"))
-            instance.setFooter(lang.getTranslationWithParams("errors.descriptions.channelRenameOrigin",[method]))
+            instance.setFooter(lang.getTranslationWithParams("errors.descriptions.channelRenameSource",[method]))
             instance.addFields(
                 {name:lang.getTranslation("params.uppercase.originalName")+":",value:"```#"+originalName+"```",inline:false},
                 {name:lang.getTranslation("params.uppercase.newName")+":",value:"```#"+newName+"```",inline:false}
+            )
+        })
+    )
+
+    //ERROR CHANNEL CATEGORY
+    embeds.add(new api.ODEmbed("opendiscord:error-channel-category"))
+    embeds.get("opendiscord:error-channel-category").workers.add(
+        new api.ODWorker("opendiscord:error-channel-category",0,async (instance,params,origin) => {
+            const {channel,user,originalCategory,newCategory} = params
+            
+            const method = (origin == "ticket-create" || origin == "ticket-close" || origin == "ticket-reopen" || origin == "ticket-claim" || origin == "ticket-unclaim" || origin == "ticket-move") ? origin : getMethodFromOrigin(origin)
+
+            instance.setColor(generalConfig.data.system.useRedErrorEmbeds ? "Red" : generalConfig.data.mainColor)
+            //TODO TRANSLATION!!!
+            instance.setTitle(utilities.emojiTitle("❌","Unable To Change Category"))
+            instance.setAuthor(user.displayName,user.displayAvatarURL())
+            //TODO TRANSLATION!!!
+            instance.setDescription("Due to Discord rate limits, the channel category could not be changed immediately. It will be changed automatically within 10 minutes if the bot remains online.")
+            instance.setFooter(lang.getTranslationWithParams("errors.descriptions.channelRenameSource",[method]))
+            instance.addFields(
+                //TODO TRANSLATION!!!
+                {name:"Original Category"+":",value:"```"+originalCategory+"```",inline:false},
+                //TODO TRANSLATION!!!
+                {name:"New Category"+":",value:"```"+newCategory+"```",inline:false}
             )
         })
     )

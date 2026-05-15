@@ -178,6 +178,16 @@ const errorMessages = () => {
         })
     )
 
+    //ERROR CHANNEL CATEGORY
+    messages.add(new api.ODMessage("opendiscord:error-channel-category"))
+    messages.get("opendiscord:error-channel-category").workers.add(
+        new api.ODWorker("opendiscord:error-channel-category",0,async (instance,params,origin) => {
+            const {guild,channel,user,originalCategory,newCategory} = params
+            instance.addEmbed(await embeds.getSafe("opendiscord:error-channel-category").build(origin,{guild,channel,user,originalCategory,newCategory}))
+            instance.setEphemeral(true)
+        })
+    )
+
     //ERROR TICKET BUSY
     messages.add(new api.ODMessage("opendiscord:error-ticket-busy"))
     messages.get("opendiscord:error-ticket-busy").workers.add(

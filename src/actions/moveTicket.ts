@@ -23,70 +23,26 @@ export async function registerActions(){
             //get new channel properties
             const channelPrefix = ticket.option.get("opendiscord:channel-prefix").value
             const channelSuffix = ticket.get("opendiscord:channel-suffix").value
-            const channelCategory = ticket.option.get("opendiscord:channel-category").value
-            const channelBackupCategory = ticket.option.get("opendiscord:channel-category-backup").value
-            const rawClaimCategory = ticket.option.get("opendiscord:channel-categories-claimed").value.find((c) => c.user == user.id)
-            const claimCategory = (rawClaimCategory) ? rawClaimCategory.category : null
-            const closeCategory = ticket.option.get("opendiscord:channel-category-closed").value
-            const channelTopic = ticket.option.get("opendiscord:channel-topic").value
 
-            //handle category
-            let category: string|null = null
-            let categoryMode: "backup"|"normal"|"closed"|"claimed"|null = null
-            if (claimCategory){
-                //use claim category
-                category = claimCategory
-                categoryMode = "claimed"
-            }else if (closeCategory != "" && ticket.get("opendiscord:closed").value){
-                //use close category
-                category = closeCategory
-                categoryMode = "closed"
-            }else if (channelCategory != ""){
-                //category enabled
-                const normalCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelCategory)
-                if (!normalCategory){
-                    //default category was not found
-                    opendiscord.log("Ticket Move Error: Unable to find category! #1","error",[
-                        {key:"categoryid",value:channelCategory},
-                        {key:"backup",value:"false"}
+            //calculate & update category
+            const categoryResult = await opendiscord.actions.get("opendiscord:calculate-ticket-category").run("move-ticket",{guild,user,option:ticket.option,channel,ticket,currentCategoryId:channel.parentId})
+            if (categoryResult && categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryId !== "undefined" && typeof categoryResult.newCategoryMode !== "undefined" && typeof categoryResult.newCategory !== "undefined"){
+                const originalCategoryName = channel.parent?.name ?? "<unknown>"
+                const newCategoryName = categoryResult.newCategory?.name ?? "<unknown>"
+                try{
+                    await utilities.timedAwait(channel.setParent(categoryResult.newCategoryId,{lockPermissions:false}),3000,(err) => {
+                        process.emit("uncaughtException",new Error("Error: Unable to change channel parent: "+err))
+                    })
+                    ticket.get("opendiscord:category-mode").value = categoryResult.newCategoryMode
+                    ticket.get("opendiscord:category").value = categoryResult.newCategoryId
+                }catch(err){
+                    await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-channel-category").build("ticket-move",{guild,channel,user,originalCategory:originalCategoryName,newCategory:newCategoryName})).message)
+                    opendiscord.log("Unable to move ticket to moved category.","error",[
+                        {key:"channel",value:"#"+channel.name},
+                        {key:"channelid",value:channel.id,hidden:true},
+                        {key:"categoryid",value:categoryResult.newCategoryId ?? "/"}
                     ])
-                }else{
-                    //default category was found
-                    if (normalCategory.children.cache.size >= 50 && channelBackupCategory != ""){
-                        //use backup category
-                        const backupCategory = await opendiscord.client.fetchGuildCategoryChannel(guild,channelBackupCategory)
-                        if (!backupCategory){
-                            //default category was not found
-                            opendiscord.log("Ticket Move Error: Unable to find category! #2","error",[
-                                {key:"categoryid",value:channelBackupCategory},
-                                {key:"backup",value:"true"}
-                            ])
-                        }else{
-                            category = backupCategory.id
-                            categoryMode = "backup"
-                        }
-                    }else{
-                        //use default category
-                        category = normalCategory.id
-                        categoryMode = "normal"
-                    }
                 }
-            }
-
-            try {
-                //only move category when not the same.
-                if (channel.parentId != category) await utilities.timedAwait(channel.setParent(category,{lockPermissions:false}),2500,(err) => {
-                    opendiscord.log("Failed to change channel category on ticket move","error")
-                })
-                ticket.get("opendiscord:category-mode").value = categoryMode
-                ticket.get("opendiscord:category").value = category
-            }catch(e){
-                opendiscord.log("Unable to move ticket to 'moved category'!","error",[
-                    {key:"channel",value:"#"+channel.name},
-                    {key:"channelid",value:channel.id,hidden:true},
-                    {key:"categoryid",value:category ?? "/"}
-                ])
-                opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
             }
 
             //handle permissions

@@ -26,22 +26,25 @@ export async function registerActions(){
             await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-claimed",1,"increase")
             await opendiscord.statistics.get("opendiscord:user").setStat("opendiscord:tickets-claimed",user.id,1,"increase")
 
-            //update category
+            //calculate & update category
             if (typeof params.allowCategoryChange == "boolean" ? params.allowCategoryChange : true){
-                const rawClaimCategory = ticket.option.get("opendiscord:channel-categories-claimed").value.find((c) => c.user == user.id)
-                const claimCategory = (rawClaimCategory) ? rawClaimCategory.category : null
-                if (claimCategory){
-                    try {
-                        channel.setParent(claimCategory,{lockPermissions:false})
-                        ticket.get("opendiscord:category-mode").value = "claimed"
-                        ticket.get("opendiscord:category").value = claimCategory
-                    }catch(e){
-                        opendiscord.log("Unable to move ticket to 'claimed category'!","error",[
+                const categoryResult = await opendiscord.actions.get("opendiscord:calculate-ticket-category").run("claim-ticket",{guild,user,option:ticket.option,channel,ticket,currentCategoryId:channel.parentId})
+                if (categoryResult && categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryId !== "undefined" && typeof categoryResult.newCategoryMode !== "undefined" && typeof categoryResult.newCategory !== "undefined"){
+                    const originalCategoryName = channel.parent?.name ?? "<unknown>"
+                    const newCategoryName = categoryResult.newCategory?.name ?? "<unknown>"
+                    try{
+                        await utilities.timedAwait(channel.setParent(categoryResult.newCategoryId,{lockPermissions:false}),3000,(err) => {
+                            process.emit("uncaughtException",new Error("Error: Unable to change channel parent: "+err))
+                        })
+                        ticket.get("opendiscord:category-mode").value = categoryResult.newCategoryMode
+                        ticket.get("opendiscord:category").value = categoryResult.newCategoryId
+                    }catch(err){
+                        await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-channel-category").build("ticket-claim",{guild,channel,user,originalCategory:originalCategoryName,newCategory:newCategoryName})).message)
+                        opendiscord.log("Unable to move ticket to claimed category.","error",[
                             {key:"channel",value:"#"+channel.name},
                             {key:"channelid",value:channel.id,hidden:true},
-                            {key:"categoryid",value:claimCategory}
+                            {key:"categoryid",value:categoryResult.newCategoryId ?? "/"}
                         ])
-                        opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
                     }
                 }
             }

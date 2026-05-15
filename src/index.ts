@@ -781,6 +781,7 @@ const main = async () => {
     opendiscord.log("Loading actions...","system")
     if (opendiscord.sharedFuses.getFuse("actionsLoading")){
         await (await import("./actions/createTicketPermissions.js")).registerActions()
+        await (await import("./actions/calculateTicketCategory.js")).registerActions()
         await (await import("./actions/createTranscript.js")).registerActions()
         await (await import("./actions/createTicket.js")).registerActions()
         await (await import("./actions/closeTicket.js")).registerActions()

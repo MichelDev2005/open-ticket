@@ -39,7 +39,7 @@ export interface ODTicketIdMappings extends ODTicketIdConstraint {
     "opendiscord:for-deletion":ODTicketData<boolean>,
 
     "opendiscord:category":ODTicketData<string|null>,
-    "opendiscord:category-mode":ODTicketData<null|"normal"|"closed"|"backup"|"claimed">,
+    "opendiscord:category-mode":ODTicketData<string|null>,
     
     "opendiscord:autoclose-enabled":ODTicketData<boolean>,
     "opendiscord:autoclose-hours":ODTicketData<number>,

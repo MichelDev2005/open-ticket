@@ -34,21 +34,25 @@ export async function registerActions(){
             await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-closed",1,"increase")
             await opendiscord.statistics.get("opendiscord:user").setStat("opendiscord:tickets-closed",user.id,1,"increase")
 
-            //update category
+            //calculate & update category
             if (typeof params.allowCategoryChange == "boolean" ? params.allowCategoryChange : true){
-                const closeCategory = ticket.option.get("opendiscord:channel-category-closed").value
-                if (closeCategory !== ""){
-                    try {
-                        channel.setParent(closeCategory,{lockPermissions:false})
-                        ticket.get("opendiscord:category-mode").value = "closed"
-                        ticket.get("opendiscord:category").value = closeCategory
-                    }catch(e){
-                        opendiscord.log("Unable to move ticket to 'closed category'!","error",[
+                const categoryResult = await opendiscord.actions.get("opendiscord:calculate-ticket-category").run("close-ticket",{guild,user,option:ticket.option,channel,ticket,currentCategoryId:channel.parentId})
+                if (categoryResult && categoryResult.shouldChangeCategory && typeof categoryResult.newCategoryId !== "undefined" && typeof categoryResult.newCategoryMode !== "undefined" && typeof categoryResult.newCategory !== "undefined"){
+                    const originalCategoryName = channel.parent?.name ?? "<unknown>"
+                    const newCategoryName = categoryResult.newCategory?.name ?? "<unknown>"
+                    try{
+                        await utilities.timedAwait(channel.setParent(categoryResult.newCategoryId,{lockPermissions:false}),3000,(err) => {
+                            process.emit("uncaughtException",new Error("Error: Unable to change channel parent: "+err))
+                        })
+                        ticket.get("opendiscord:category-mode").value = categoryResult.newCategoryMode
+                        ticket.get("opendiscord:category").value = categoryResult.newCategoryId
+                    }catch(err){
+                        await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-channel-category").build("ticket-close",{guild,channel,user,originalCategory:originalCategoryName,newCategory:newCategoryName})).message)
+                        opendiscord.log("Unable to move ticket to closed category.","error",[
                             {key:"channel",value:"#"+channel.name},
                             {key:"channelid",value:channel.id,hidden:true},
-                            {key:"categoryid",value:closeCategory}
+                            {key:"categoryid",value:categoryResult.newCategoryId ?? "/"}
                         ])
-                        opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
                     }
                 }
             }
