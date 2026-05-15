@@ -380,7 +380,7 @@ const main = async () => {
             //throw if bot doesn't have permissions in main server
             if (!client.checkGuildPerms(mainServer)){
                 console.log("\n")
-                opendiscord.log("The bot doesn't have the correct permissions in the server provided in the config!","error")
+                opendiscord.log("The bot doesn’t have the required permissions for the server specified in the configuration.","error")
                 opendiscord.log("Please give the bot \"Administrator\" permissions or visit the documentation!","info")
                 console.log("\n")
                 process.exit(1)
@@ -388,12 +388,13 @@ const main = async () => {
             if (opendiscord.sharedFuses.getFuse("clientMultiGuildWarning")){
                 //warn if bot is in multiple servers
                 if (botServers.length > 1){
-                    opendiscord.log("This bot is part of multiple servers, but Open Ticket doesn't provide support for this!","warning")
-                    opendiscord.log("As a result, the bot may crash & glitch when used in the additional servers!","info")
+                    opendiscord.log("This bot is part of multiple servers, but Open Ticket does not support this.","warning")
+                    opendiscord.log("The bot may have weird behaviour when used in external servers!","info")
+                    await utilities.timer(2000)
                 }
                 botServers.forEach((server) => {
                     //warn if bot doesn't have permissions in multiple servers
-                    if (!client.checkGuildPerms(server)) opendiscord.log(`The bot doesn't have the correct permissions in the server "${server.name}"!`,"warning")
+                    if (!client.checkGuildPerms(server)) opendiscord.log(`The bot doesn’t have the required permissions for the server "${server.name}".`,"warning")
                 })
             }
 

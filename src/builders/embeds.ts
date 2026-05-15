@@ -628,7 +628,7 @@ const ticketEmbeds = () => {
                 const answers = ticket.get("opendiscord:answers").value
                 answers.forEach((answer) => {
                     if (!answer.value || answer.value.length == 0) return
-                    if (generalConfig.data.system.questionFieldsInCodeBlock) instance.addFields({name:answer.name,value:"```"+answer.value+"```",inline:false})
+                    if (generalConfig.data.system.questionFieldsInCodeBlock) instance.addFields({name:answer.name,value:"```"+answer.value.slice(0,1024-6)+"```",inline:false})
                     else instance.addFields({name:answer.name,value:answer.value,inline:false})
                 })
             }else if (embedOptions.fields){

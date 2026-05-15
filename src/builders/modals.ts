@@ -30,7 +30,7 @@ const ticketModals = () => {
                     required:question.get("opendiscord:required").value,
                     placeholder:(question.get("opendiscord:placeholder").value) ? question.get("opendiscord:placeholder").value : undefined,
                     minLength:(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-min").value : undefined,
-                    maxLength:(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-max").value : undefined
+                    maxLength:Math.min(1024-6,(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-max").value : (1024-6)) //embed field limit - 6x` characters
                 })
                 else if (question instanceof api.ODParagraphQuestion) instance.addQuestion({
                     customId:question.id.value,
@@ -39,7 +39,7 @@ const ticketModals = () => {
                     required:question.get("opendiscord:required").value,
                     placeholder:(question.get("opendiscord:placeholder").value) ? question.get("opendiscord:placeholder").value : undefined,
                     minLength:(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-min").value : undefined,
-                    maxLength:(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-max").value : undefined
+                    maxLength:Math.min(1024-6,(question.get("opendiscord:length-enabled").value) ? question.get("opendiscord:length-max").value : (1024-6)) //embed field limit - 6x` characters
                 })
             })
         })

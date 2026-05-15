@@ -3,15 +3,6 @@
 ///////////////////////////////////////
 import * as api from "@open-discord-bots/framework/api"
 
-/** (CONTRIBUTOR GUIDE) HOW TO ADD NEW LANGUAGES?
- * - Add the file to (./languages/) and make sure the metadata is valid.
- * - Register the language in loadAllLanguages() in (./src/data/framework/languageLoader.ts).
- * - Add autocomplete for the language in ODLanguageManagerIds_Default in (./src/core/api/defaults/language.ts).
- * - Update the language list in the README.md translator list.
- * - Update the 2 language counters in the README.md features list.
- * - Update the Open Ticket Documentation.
- */
-
 /**## ODLanguageManagerIdMappings `interface`
  * A list of all available IDs in the default `ODLanguageManager` class in `opendiscord`.
  * It's used to generate typescript declarations for this class.

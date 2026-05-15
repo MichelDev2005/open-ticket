@@ -25,7 +25,7 @@ Need help or want to get involved? Feel free to join our <a href="https://discor
 <p align="center"><sup>❤️ Love Open Ticket? <a href="https://github.com/sponsors/DJj123dj">Sponsorships</a> help fuel our HTML transcript servers and future features! ❤️</sup></p>
 
 ---
-> **[-> Navigate to (⏱️ Quick Setup)](#️-quick-start-using-cli)**  
+> **[-> Navigate to (⏱️ Quick Setup)](#️-quick-start-using-interactive-cli-tool)**  
 > **[-> Navigate to (📚 Documentation)](https://otdocs.dj-dj.be)**  
 > **[-> Navigate to (📞 Support Server)](https://discord.dj-dj.be)**
 
