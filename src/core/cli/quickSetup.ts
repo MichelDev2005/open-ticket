@@ -1,9 +1,11 @@
 import {opendiscord, api, utilities} from "../../index.js"
 import * as cli from "@open-discord-bots/framework/cli"
-import {Terminal, terminal} from "terminal-kit"
+import terminalKit from "terminal-kit"
 import ansis from "ansis"
 import * as discord from "discord.js"
 import { headerOpts } from "./cli.js"
+
+const terminal = terminalKit.terminal
 
 interface ODQuickSetupVariables {
     client?:api.ODClientManager,
@@ -42,7 +44,7 @@ interface ODQuickSetupVariables {
 const stepCount = (count:number) => "(Step "+count+"/24) "
 
 const quickSetupStorage: ODQuickSetupVariables = {ticketOptions:[],optionIdStorage:[]}
-const autoCompleteMenuOpts: Terminal.SingleLineMenuOptions = {
+const autoCompleteMenuOpts: terminalKit.Terminal.SingleLineMenuOptions = {
     style:terminal.white,
     selectedStyle:terminal.bgBlue.white
 }
@@ -345,7 +347,7 @@ async function renderQuickSetupColorPicker(backFn:() => api.ODPromiseVoid){
         cancelable:true,
         autoComplete:Array.from(presetColors.keys()),
         autoCompleteHint:true,
-        autoCompleteMenu:autoCompleteMenuOpts as Terminal.Autocompletion
+        autoCompleteMenu:autoCompleteMenuOpts as terminalKit.Terminal.Autocompletion
     }).promise
 
     if (typeof answer != "string") return await backFn()
@@ -379,7 +381,7 @@ async function renderQuickSetupLanguage(backFn:() => api.ODPromiseVoid){
         cancelable:true,
         autoComplete:opendiscord.sharedFuses.getFuse("languageList"),
         autoCompleteHint:true,
-        autoCompleteMenu:autoCompleteMenuOpts as Terminal.Autocompletion
+        autoCompleteMenu:autoCompleteMenuOpts as terminalKit.Terminal.Autocompletion
     }).promise
 
     if (typeof answer != "string") return await backFn()

@@ -20,5 +20,5 @@ export async function execute(){
     const editConfig = new cli.ODCliEditConfigInstance(headerOpts,opendiscord)
     const renderQuickSetup = (await import("./quickSetup.js")).renderQuickSetup
 
-    await cli.execute(headerOpts,editConfig.renderEditConfig,renderQuickSetup)
+    await cli.execute(headerOpts,async (backFn) => {return editConfig.renderEditConfig(backFn)},renderQuickSetup)
 }

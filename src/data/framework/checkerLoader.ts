@@ -257,6 +257,31 @@ export const defaultGeneralStructure = new api.ODCheckerObjectStructure("opendis
         cliDisplayDescription:"Manage the status of the bot."
     })},
 
+    //LOGS
+    {key:"logs",checker:new api.ODCheckerEnabledObjectStructure("opendiscord:logs",{property:"enabled",enabledValue:true,ignoreCheckIfDisabled:true,checker:new api.ODCheckerObjectStructure("opendiscord:logs",{children:[
+        {key:"enabled",checker:new api.ODCheckerBooleanStructure("opendiscord:logs-enabled",{cliDisplayName:"Enabled",cliDisplayDescription:"Enable/disable discord logs in a discord channel."})},
+        {key:"channel",checker:new api.ODCheckerCustomStructure_DiscordId("opendiscord:logs-channel","channel",false,[],{cliDisplayName:"Log Channel",cliDisplayDescription:"The log message channel ID."})},
+
+        //LOG MESSAGES
+        {key:"logMessages",checker:new api.ODCheckerObjectStructure("opendiscord:log-messages",{children:[
+            {key:"creation",checker:createMsgStructure("opendiscord:msg-creation","Ticket Created")},
+            {key:"closing",checker:createMsgStructure("opendiscord:msg-closing","Ticket Closed")},
+            {key:"deleting",checker:createMsgStructure("opendiscord:msg-deleting","Ticket Deleted")},
+            {key:"reopening",checker:createMsgStructure("opendiscord:msg-reopening","Ticket Reopened")},
+            {key:"claiming",checker:createMsgStructure("opendiscord:msg-claiming","Ticket Claimed")},
+            {key:"pinning",checker:createMsgStructure("opendiscord:msg-pinning","Ticket Pinned")},
+            {key:"adding",checker:createMsgStructure("opendiscord:msg-adding","User Added")},
+            {key:"removing",checker:createMsgStructure("opendiscord:msg-removing","User Removed")},
+            {key:"renaming",checker:createMsgStructure("opendiscord:msg-renaming","Ticket Renamed")},
+            {key:"moving",checker:createMsgStructure("opendiscord:msg-moving","Ticket Moved")},
+            {key:"blacklisting",checker:createMsgStructure("opendiscord:msg-blacklisting","User Blacklisted")},
+            {key:"transferring",checker:createMsgStructure("opendiscord:msg-transferring","Ticket Transferred")},
+            {key:"topicChange",checker:createMsgStructure("opendiscord:msg-topic-change","Topic Changed")},
+            {key:"priorityChange",checker:createMsgStructure("opendiscord:msg-priority-change","Priority Changed")},
+            {key:"reactionRole",checker:createMsgStructure("opendiscord:msg-reaction-role","Reaction Role")},
+        ],cliDisplayName:"Log Messages",cliDisplayDescription:"Manage all messages & DM's for each action of the bot. (Visit docs for more info)"})},
+    ],cliDisplayName:"Discord Logs",cliDisplayDescription:"Manage the 'Open Ticket' logs channel."}),cliDisplayName:"Discord Logs",cliDisplayDescription:"Manage the 'Open Ticket' logs channel."})},
+
     //TICKET SYSTEM
     {key:"ticketSystem",checker:new api.ODCheckerObjectStructure("opendiscord:ticket-system",{children:[
         {key:"preferSlashOverText",checker:new api.ODCheckerBooleanStructure("opendiscord:prefer-slash-over-text",{cliDisplayName:"Prefer Slash Over Text",cliDisplayDescription:"Prefer displaying slash commands over text commands in help menus."})},
@@ -322,7 +347,7 @@ export const defaultGeneralStructure = new api.ODCheckerObjectStructure("opendis
         {key:"claimedCategories",checker:new api.ODCheckerArrayStructure("opendiscord:claimed-categories",{allowDoubles:false,allowedTypes:["object"],cliDisplayPropertyName:"claim category",propertyChecker:new api.ODCheckerObjectStructure("opendiscord:claimed-category",{children:[
             {key:"user",checker:new api.ODCheckerCustomStructure_DiscordId("opendiscord:claimed-user","user",false,[],{cliDisplayName:"User",cliDisplayDescription:"The discord user ID of a ticket claimer."})},
             {key:"category",checker:new api.ODCheckerCustomStructure_DiscordId("opendiscord:claimed-category","category",false,[],{cliDisplayName:"Category",cliDisplayDescription:"The discord category ID to move the ticket to."})}
-        ],cliDisplayName:"Claimed Category",cliDisplayDescription:"Move claimed tickets to the matching channel category of the user that claimed the ticket."}),cliDisplayName:"Claimed Categories",cliDisplayDescription:"Move claimed tickets to the matching channel category of the user that claimed the ticket."})},
+        ],cliDisplayName:"Claimed Category",cliDisplayDescription:"Move claimed tickets to the matching channel category of the user that claimed the ticket.",cliDisplayKeyInParentArray:"user",cliDisplayAdditionalKeysInParentArray:["user","category"]}),cliDisplayName:"Claimed Categories",cliDisplayDescription:"Move claimed tickets to the matching channel category of the user that claimed the ticket."})},
     
     ],cliDisplayName:"Ticket System",cliDisplayDescription:"Configure the 'Open Ticket' ticket system."})},
 
@@ -352,32 +377,6 @@ export const defaultGeneralStructure = new api.ODCheckerObjectStructure("opendis
         {key:"priority",checker:createPermissionStructure("opendiscord:permissions-priority","Priority")},
         {key:"transcripts",checker:createPermissionStructure("opendiscord:permissions-transcripts","Transcripts History")},
     ],cliDisplayName:"Permissions",cliDisplayDescription:"Manage all button & command permissions in the bot. (Visit docs for more info)"})},
-
-    //LOGS
-    {key:"logs",checker:new api.ODCheckerEnabledObjectStructure("opendiscord:logs",{property:"enabled",enabledValue:true,ignoreCheckIfDisabled:true,checker:new api.ODCheckerObjectStructure("opendiscord:logs",{children:[
-        {key:"enabled",checker:new api.ODCheckerBooleanStructure("opendiscord:logs-enabled",{cliDisplayName:"Enabled",cliDisplayDescription:"Enable/disable discord logs in a discord channel."})},
-        {key:"channel",checker:new api.ODCheckerCustomStructure_DiscordId("opendiscord:logs-channel","channel",false,[],{cliDisplayName:"Log Channel",cliDisplayDescription:"The log message channel ID."})},
-
-        //LOG MESSAGES
-        {key:"logMessages",checker:new api.ODCheckerObjectStructure("opendiscord:log-messages",{children:[
-            {key:"creation",checker:createMsgStructure("opendiscord:msg-creation","Ticket Created")},
-            {key:"closing",checker:createMsgStructure("opendiscord:msg-closing","Ticket Closed")},
-            {key:"deleting",checker:createMsgStructure("opendiscord:msg-deleting","Ticket Deleted")},
-            {key:"reopening",checker:createMsgStructure("opendiscord:msg-reopening","Ticket Reopened")},
-            {key:"claiming",checker:createMsgStructure("opendiscord:msg-claiming","Ticket Claimed")},
-            {key:"pinning",checker:createMsgStructure("opendiscord:msg-pinning","Ticket Pinned")},
-            {key:"adding",checker:createMsgStructure("opendiscord:msg-adding","User Added")},
-            {key:"removing",checker:createMsgStructure("opendiscord:msg-removing","User Removed")},
-            {key:"renaming",checker:createMsgStructure("opendiscord:msg-renaming","Ticket Renamed")},
-            {key:"moving",checker:createMsgStructure("opendiscord:msg-moving","Ticket Moved")},
-            {key:"blacklisting",checker:createMsgStructure("opendiscord:msg-blacklisting","User Blacklisted")},
-            {key:"transferring",checker:createMsgStructure("opendiscord:msg-transferring","Ticket Transferred")},
-            {key:"topicChange",checker:createMsgStructure("opendiscord:msg-topic-change","Topic Changed")},
-            {key:"priorityChange",checker:createMsgStructure("opendiscord:msg-priority-change","Priority Changed")},
-            {key:"reactionRole",checker:createMsgStructure("opendiscord:msg-reaction-role","Reaction Role")},
-        ],cliDisplayName:"Log Messages",cliDisplayDescription:"Manage all messages & DM's for each action of the bot. (Visit docs for more info)"})},
-    ],cliDisplayName:"Discord Logs",cliDisplayDescription:"Manage the 'Open Ticket' logs channel."}),cliDisplayName:"Discord Logs",cliDisplayDescription:"Manage the 'Open Ticket' logs channel."})},
-    
 ],cliDisplayName:"General",cliDisplayDescription:"General settings for the bot."})
 
 export const defaultOptionsStructure = new api.ODCheckerArrayStructure("opendiscord:options",{allowedTypes:["object"],cliDisplayPropertyName:"option",propertyChecker:new api.ODCheckerObjectSwitchStructure("opendiscord:options",{objects:[
