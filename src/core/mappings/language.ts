@@ -46,6 +46,7 @@ export interface ODLanguageManagerIdMappings extends api.ODLanguageManagerIdCons
     "opendiscord:traditional-chinese":api.ODLanguage,
     "opendiscord:slovenian":api.ODLanguage,
     "opendiscord:tamil":api.ODLanguage,
+    "opendiscord:khmer  ":api.ODLanguage,
     //ADD NEW LANGUAGES HERE!!!
 }
 

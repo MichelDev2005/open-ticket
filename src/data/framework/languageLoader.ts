@@ -40,4 +40,5 @@ export async function loadAllLanguages(){
     opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:traditional-chinese","traditional-chinese.json"))
     opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:slovenian","slovenian.json"))
     opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:tamil","tamil.json"))
+    opendiscord.languages.add(new api.ODJsonLanguage("opendiscord:khmer","khmer.json"))
 }
