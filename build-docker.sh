@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-IMAGE="${1:?Usage: ./build.sh <image> [--no-push]}"
+IMAGE="${1:?Usage: ./build-docker.sh <image> [--no-push]}"
 PLATFORMS="linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64" # linux/s390x is taking too long to build, so we'll skip it for now
 VERSION=$(node -p "require('./package.json').version")
 
