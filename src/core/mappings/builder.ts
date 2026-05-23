@@ -4,7 +4,7 @@
 import * as api from "@open-discord-bots/framework/api"
 import { ODPermissionEmbedType } from "./permission.js"
 import { ODTranscriptCompiler, ODTranscriptCompilerCompileResult } from "../api/transcript.js"
-import { ODRoleOption, ODSubPanelOption, ODTicketOption, ODWebsiteOption } from "../api/option.js"
+import { ODOption, ODRoleOption, ODSubPanelOption, ODTicketOption, ODWebsiteOption } from "../api/option.js"
 import { ODTicket, ODTicketClearFilter } from "../api/ticket.js"
 import { ODRole, ODRoleUpdateResult } from "../api/role.js"
 import { ODPriorityLevel } from "../api/priority.js"
@@ -52,7 +52,7 @@ export interface ODButtonManagerIdMappings extends api.ODButtonManagerIdConstrai
  * It's used to generate typescript declarations for this class.
  */
 export interface ODDropdownManagerIdMappings extends api.ODDropdownManagerIdConstraint {
-    "opendiscord:panel-dropdown-tickets":{origin:"slash"|"text"|"sub-panel"|"auto-update"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,panel:ODPanel,options:ODTicketOption[]},workers:"opendiscord:panel-dropdown-tickets"}
+    "opendiscord:panel-dropdown":{origin:"slash"|"text"|"sub-panel"|"auto-update"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,panel:ODPanel,options:(ODTicketOption|ODRoleOption|ODSubPanelOption)[]},workers:"opendiscord:panel-dropdown"}
 }
 
 /**## ODFileManagerIdMappings `interface`

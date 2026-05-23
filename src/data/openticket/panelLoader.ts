@@ -33,8 +33,11 @@ export const loadPanel = (panel:api.ODPanelsJsonConfig_Panel) => {
         new api.ODPanelData("opendiscord:embed",panel.embed),
 
         new api.ODPanelData("opendiscord:dropdown-placeholder",panel.settings.dropdownPlaceholder),
+        new api.ODPanelData("opendiscord:maximum-buttons-per-row",panel.settings.maximumButtonsPerRow),
+        
         new api.ODPanelData("opendiscord:enable-max-tickets-warning-text",panel.settings.enableMaxTicketsWarningInText),
         new api.ODPanelData("opendiscord:enable-max-tickets-warning-embed",panel.settings.enableMaxTicketsWarningInEmbed),
+
         new api.ODPanelData("opendiscord:describe-options-layout",panel.settings.describeOptionsLayout),
         new api.ODPanelData("opendiscord:describe-options-custom-title",panel.settings.describeOptionsCustomTitle),
         new api.ODPanelData("opendiscord:describe-options-in-text",panel.settings.describeOptionsInText),

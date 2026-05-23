@@ -8,24 +8,6 @@ const generalConfig = opendiscord.configs.get("opendiscord:general")
 const lang = opendiscord.languages
 const panelMsgState = opendiscord.states.get("opendiscord:panel-message")
 
-async function checkTicketCreationPerms(instance:api.ODButtonResponderInstance|api.ODDropdownResponderInstance|api.ODModalResponderInstance|api.ODCommandResponderInstance,origin:api.ODActionManagerIdMappings["opendiscord:create-ticket-permissions"]["origin"],guild:discord.Guild,user:discord.User,option:api.ODTicketOption){
-    //check ticket permissions
-    const permsRes = await opendiscord.actions.get("opendiscord:create-ticket-permissions").run(origin,{guild,user,option})
-    if (!permsRes.valid && instance.channel){
-        //error
-        const newOrigin = (origin === "slash" || origin === "text") ? origin : "other"
-        if (permsRes.reason == "blacklist") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-blacklisted").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
-        else if (permsRes.reason == "cooldown") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-cooldown").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,until:permsRes.cooldownUntil}))
-        else if (permsRes.reason == "global-limit") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-limits").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,limit:"global"}))
-        else if (permsRes.reason == "global-user-limit") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-limits").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,limit:"global-user"}))
-        else if (permsRes.reason == "option-limit") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-limits").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,limit:"option"}))
-        else if (permsRes.reason == "option-user-limit") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions-limits").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,limit:"option-user"}))
-        else if (permsRes.reason == "custom") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,layout:"simple",error:permsRes.customReason ?? lang.getTranslation("errors.descriptions.unableToCreateTicket")+" `Unknown invalid_permission_reason => no reason specified by plugin`",customTitle:lang.getTranslation("errors.titles.permissionError")}))
-        else await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build(newOrigin,{guild:instance.guild,channel:instance.channel,user:instance.user,error:"Unknown invalid_permission reason => calculation failed #1",layout:"advanced"}))
-        return false
-    }else return true
-}
-
 export async function registerCommandResponders(){
     //TICKET COMMAND RESPONDER
     opendiscord.responders.commands.add(new api.ODCommandResponder("opendiscord:ticket",generalConfig.data.prefix,/^ticket/))
@@ -54,7 +36,7 @@ export async function registerCommandResponders(){
                 instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build(origin,{guild,channel,user,option}))
             }else{
                 //check ticket permissions (modals need check after submit)
-                if (!(await checkTicketCreationPerms(instance,origin,guild,user,option))) return cancel()
+                if (!(await openticketUtils.checkTicketCreationPerms(instance,origin,guild,user,option))) return cancel()
             
                 //CREATE TICKET
                 await instance.defer(true)
@@ -114,7 +96,7 @@ export async function registerButtonResponders(){
                 instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build("panel-button",{guild,channel,user,option}))
             }else{
                 //check ticket permissions (modals need check after submit)
-                if (!(await checkTicketCreationPerms(instance,"panel-button",guild,user,option))) return cancel()
+                if (!(await openticketUtils.checkTicketCreationPerms(instance,"panel-button",guild,user,option))) return cancel()
             
                 //CREATE TICKET
                 await instance.defer((generalConfig.data.ticketSystem.replyOnTicketCreation) ? "reply" : "update",true)
@@ -126,71 +108,6 @@ export async function registerButtonResponders(){
                     return cancel()
                 }
                 if (generalConfig.data.ticketSystem.replyOnTicketCreation) await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:ticket-created").build("panel-button",{guild,channel:res.channel,user,ticket:res.ticket}))
-            }
-        })
-    )
-}
-
-export async function registerDropdownResponders(){
-    //PANEL DROPDOWN TICKETS DROPDOWN RESPONDER
-    opendiscord.responders.dropdowns.add(new api.ODDropdownResponder("opendiscord:panel-dropdown-tickets",/^od:panel-dropdown/))
-    opendiscord.responders.dropdowns.get("opendiscord:panel-dropdown-tickets").workers.add(
-        new api.ODWorker("opendiscord:panel-dropdown-tickets",0,async (instance,params,origin,cancel) => {
-            const {guild,channel,user,message} = instance
-            
-            //check message state
-            const state = await panelMsgState.getMsgState({channel,message})
-            if (!state){
-                //TODO TRANSLATION!!!
-                await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build(origin,{guild,channel,user,error:"This panel is no longer valid or has expired. Create a new panel using `{0}` to solve the issue. It is normal to receive this error after a major Open Ticket update.".replace("{0}","/panel"),layout:"simple",customTitle:"Message State Expired"}))
-                return cancel()
-            }
-
-            //responder checks
-            const isInGuild = await openticketUtils.replyIsInGuild(instance,origin)
-            if (!isInGuild || !guild || channel.isDMBased()) return cancel()
-
-            //get option data
-            const match = /^od:ticket-option\|([^|]+)/.exec(instance.values.getStringValues()[0])
-            if (!match) return cancel()
-            const optionId = match[1]
-            const option = opendiscord.options.get(optionId)
-            if (!option || !(option instanceof api.ODTicketOption)){
-                instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-option-unknown").build(origin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
-                return cancel()
-            }
-
-            //start ticket creation
-            if (option.exists("opendiscord:questions") && option.get("opendiscord:questions").value.length > 0){
-                //SEND MODAL
-                instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build("panel-dropdown",{guild,channel,user,option}))
-            }else{
-                //check ticket permissions (modals need check after submit)
-                if (!(await checkTicketCreationPerms(instance,"panel-dropdown",guild,user,option))) return cancel()
-            
-                //CREATE TICKET
-                await instance.defer((generalConfig.data.ticketSystem.replyOnTicketCreation) ? "reply" : "update",true)
-
-                const res = await opendiscord.actions.get("opendiscord:create-ticket").run("panel-dropdown",{guild,user,answers:[],option})
-                if (!res.channel || !res.ticket){
-                    //error
-                    await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build(origin,{guild,channel:instance.channel,user,error:"Unable to receive ticket or channel from callback! #1",layout:"advanced"}))
-                    return cancel()
-                }
-                if (generalConfig.data.ticketSystem.replyOnTicketCreation) await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:ticket-created").build("panel-dropdown",{guild,channel:res.channel,user,ticket:res.ticket}))
-            }
-
-            //update panel after dropdown usage (reset panel choice)
-            const panel = opendiscord.panels.get(state.data.panelId)
-            if (panel){
-                const panelMessage = await instance.message.edit((await opendiscord.builders.messages.getSafe("opendiscord:panel").build("auto-update",{guild,channel,user,panel,isSubPanel:state.data.isSubPanel})).message)
-                if (panelMessage) await panelMsgState.setMsgState({channel,message:panelMessage},{
-                    messageOrigin:"auto-update",
-                    panelId:panel.id.value,
-                    panelOptionIds:panel.get("opendiscord:options").value,
-                    panelAutoUpdate:state.data.panelAutoUpdate, //same value
-                    isSubPanel:state.data.isSubPanel //same value
-                },panelMessage.flags.has("Ephemeral"))
             }
         })
     )
@@ -220,7 +137,7 @@ export async function registerModalResponders(){
             }
 
             //check ticket permissions (modals need check after submit)
-            if (!(await checkTicketCreationPerms(instance,originalOrigin,guild,user,option))) return cancel()
+            if (!(await openticketUtils.checkTicketCreationPerms(instance,originalOrigin,guild,user,option))) return cancel()
 
             //get answers
             const answers: api.ODQuestionAnswer[] = []

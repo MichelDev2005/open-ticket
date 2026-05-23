@@ -23,6 +23,7 @@ export interface ODPanelIdMappings extends ODPanelIdConstraint {
     "opendiscord:embed":ODPanelData<ODPanelsJsonConfig_PanelEmbedSettings>,
 
     "opendiscord:dropdown-placeholder":ODPanelData<string>,
+    "opendiscord:maximum-buttons-per-row":ODPanelData<number>,
     
     "opendiscord:enable-max-tickets-warning-text":ODPanelData<boolean>,
     "opendiscord:enable-max-tickets-warning-embed":ODPanelData<boolean>,

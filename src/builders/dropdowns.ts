@@ -12,23 +12,49 @@ export async function registerAllDropdowns(){
 
 const panelDropdowns = () => {
     //TICKET OPTION
-    dropdowns.add(new api.ODDropdown("opendiscord:panel-dropdown-tickets"))
-    dropdowns.get("opendiscord:panel-dropdown-tickets").workers.add(
-        new api.ODWorker("opendiscord:panel-dropdown-tickets",0,async (instance,params) => {
+    dropdowns.add(new api.ODDropdown("opendiscord:panel-dropdown"))
+    dropdowns.get("opendiscord:panel-dropdown").workers.add(
+        new api.ODWorker("opendiscord:panel-dropdown",0,async (instance,params) => {
             const {panel,options} = params
             
             const parsedOptions: api.ODDropdownData["options"] = options.map((option) => {
-                const label = option.get("opendiscord:button-label").value.substring(0,100)
-                const desc = option.get("opendiscord:description").value.substring(0,100)
-                const emoji = option.get("opendiscord:button-emoji").value
-                
-                return {
-                    label:(label.length > 0) ? label : "<no-label-provided>",
-                    value:"od:ticket-option|"+option.id.value,
-                    emoji:(emoji.length > 0) ? emoji : undefined,
-                    description:(desc.length > 0) ? desc : undefined,
-                    default:false
-                }
+                if (option instanceof api.ODTicketOption){
+                    const label = option.get("opendiscord:button-label").value.substring(0,100)
+                    const desc = option.get("opendiscord:description").value.substring(0,100)
+                    const emoji = option.get("opendiscord:button-emoji").value
+                    
+                    return {
+                        label:(label.length > 0) ? label : "<no-label-provided>",
+                        value:"od:ticket-option|"+option.id.value,
+                        emoji:(emoji.length > 0) ? emoji : undefined,
+                        description:(desc.length > 0) ? desc : undefined,
+                        default:false
+                    }
+                }else if (option instanceof api.ODRoleOption){
+                    const label = option.get("opendiscord:button-label").value.substring(0,100)
+                    const desc = option.get("opendiscord:description").value.substring(0,100)
+                    const emoji = option.get("opendiscord:button-emoji").value
+                    
+                    return {
+                        label:(label.length > 0) ? label : "<no-label-provided>",
+                        value:"od:role-option|"+option.id.value,
+                        emoji:(emoji.length > 0) ? emoji : undefined,
+                        description:(desc.length > 0) ? desc : undefined,
+                        default:false
+                    }
+                }else if (option instanceof api.ODSubPanelOption){
+                    const label = option.get("opendiscord:button-label").value.substring(0,100)
+                    const desc = option.get("opendiscord:description").value.substring(0,100)
+                    const emoji = option.get("opendiscord:button-emoji").value
+                    
+                    return {
+                        label:(label.length > 0) ? label : "<no-label-provided>",
+                        value:"od:subpanel-option|"+option.id.value,
+                        emoji:(emoji.length > 0) ? emoji : undefined,
+                        description:(desc.length > 0) ? desc : undefined,
+                        default:false
+                    }
+                }else throw new api.ODSystemError("Unable to create panel dropdown with options that don't match: ticket, role, sub-panel!")
             })
 
             instance.setCustomId("od:panel-dropdown")

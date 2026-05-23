@@ -5,17 +5,26 @@ import {opendiscord, api, utilities, openticketUtils} from "../index.js"
 import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
+const panelMsgState = opendiscord.states.get("opendiscord:panel-message")
 
 export async function registerButtonResponders(){
     //ROLE OPTION BUTTON RESPONDER
     opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:role-option",/^od:role-option\|([^|]+)/))
     opendiscord.responders.buttons.get("opendiscord:role-option").workers.add(
         new api.ODWorker("opendiscord:role-option",0,async (instance,params,origin,cancel) => {
-            const {guild,channel,user} = instance
+            const {guild,channel,user,message} = instance
 
             const match = /^od:role-option\|([^|]+)/.exec(instance.interaction.customId)
             if (!match) return cancel()
             const optionId = match[1]
+
+            //check message state
+            const state = await panelMsgState.getMsgState({channel,message})
+            if (!state){
+                //TODO TRANSLATION!!!
+                await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build(origin,{guild,channel,user,error:"This panel is no longer valid or has expired. Create a new panel using `{0}` to solve the issue. It is normal to receive this error after a major Open Ticket update.".replace("{0}","/panel"),layout:"simple",customTitle:"Message State Expired"}))
+                return cancel()
+            }
             
             //responder checks
             const isInGuild = await openticketUtils.replyIsInGuild(instance,origin)
@@ -30,7 +39,7 @@ export async function registerButtonResponders(){
             }
 
             //reaction role
-            await instance.defer("reply",true)
+            await instance.defer(generalConfig.data.ticketSystem.replyOnReactionRole ? "reply" : "update",true)
             const res = await opendiscord.actions.get("opendiscord:reaction-role").run("panel-button",{guild,user,option,overwriteMode:null})
             if (!res.result || !res.role){
                 //error

@@ -307,18 +307,27 @@ const panelMessages = () => {
 
             if (panel.get("opendiscord:dropdown").value){
                 //dropdown
-                const ticketOptions: api.ODTicketOption[] = []
+                const ticketOptions: (api.ODTicketOption|api.ODRoleOption|api.ODSubPanelOption)[] = []
                 options.forEach((option) => {
                     if (option instanceof api.ODTicketOption) ticketOptions.push(option)
+                    if (option instanceof api.ODRoleOption) ticketOptions.push(option)
+                    if (option instanceof api.ODSubPanelOption) ticketOptions.push(option)
                 })
-                instance.addComponent(await dropdowns.getSafe("opendiscord:panel-dropdown-tickets").build(origin,{guild,channel,user,panel,options:ticketOptions}))
+                instance.addComponent(await dropdowns.getSafe("opendiscord:panel-dropdown").build(origin,{guild,channel,user,panel,options:ticketOptions}))
             }else{
                 //buttons
+                let rowButtonCount: number = 0
                 for (const option of options){
+                    if (rowButtonCount >= panel.get("opendiscord:maximum-buttons-per-row").value){
+                        instance.addComponent({id:new api.ODId("opendiscord:new-row"),component:"\n"})
+                        rowButtonCount = 0
+                    }
                     if (option instanceof api.ODTicketOption) instance.addComponent(await buttons.getSafe("opendiscord:ticket-option").build(origin,{guild,channel,user,panel,option}))
                     else if (option instanceof api.ODWebsiteOption) instance.addComponent(await buttons.getSafe("opendiscord:website-option").build(origin,{guild,channel,user,panel,option}))
                     else if (option instanceof api.ODRoleOption) instance.addComponent(await buttons.getSafe("opendiscord:role-option").build(origin,{guild,channel,user,panel,option}))
                     else if (option instanceof api.ODSubPanelOption) instance.addComponent(await buttons.getSafe("opendiscord:subpanel-option").build(origin,{guild,channel,user,panel,option}))
+                        
+                    rowButtonCount++
                 }
             }
         })

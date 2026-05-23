@@ -68,7 +68,7 @@ export interface ODButtonResponderManagerIdMappings extends api.ODButtonResponde
  * It's used to generate typescript declarations for this class.
  */
 export interface ODDropdownResponderManagerIdMappings extends api.ODDropdownResponderManagerIdConstraint {
-    "opendiscord:panel-dropdown-tickets":{origin:"dropdown",params:{},workers:"opendiscord:panel-dropdown-tickets"},
+    "opendiscord:panel-dropdown":{origin:"dropdown",params:{},workers:"opendiscord:dropdown-ticket"|"opendiscord:dropdown-role"|"opendiscord:dropdown-subpanel"},
 }
 
 /**## ODModalResponderManagerIdMappings `interface`
