@@ -1,4 +1,4 @@
-import {opendiscord, api, utilities} from "../../index"
+import {opendiscord, api, utilities} from "../../index.js"
 import * as discord from "discord.js"
 
 const generalConfig = opendiscord.configs.get("opendiscord:general")
@@ -9,7 +9,7 @@ const statsDatabase = opendiscord.databases.get("opendiscord:stats")
 const optionDatabase = opendiscord.databases.get("opendiscord:options")
 const mainServer = opendiscord.client.mainServer
 
-export const loadAllCode = async () => {
+export async function loadAllCode(){
     if (!generalConfig || !mainServer || !globalDatabase || !userDatabase || !ticketDatabase || !statsDatabase || !optionDatabase) return
 
     loadCommandErrorHandlingCode()
@@ -20,7 +20,7 @@ export const loadAllCode = async () => {
     loadAutoCode()
 }
 
-export const loadCommandErrorHandlingCode = async () => {
+export async function loadCommandErrorHandlingCode(){
     //COMMAND ERROR HANDLING
     opendiscord.code.add(new api.ODCode("opendiscord:command-error-handling",14,() => {
         //invalid/missing options
@@ -30,34 +30,33 @@ export const loadCommandErrorHandlingCode = async () => {
                 error.msg.channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-option-invalid").build("text",{guild:error.msg.guild,channel:error.msg.channel,user:error.msg.author,error})).message)
             }else if (error.type == "missing_option"){
                 error.msg.channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-option-missing").build("text",{guild:error.msg.guild,channel:error.msg.channel,user:error.msg.author,error})).message)
-            }else if (error.type == "unknown_command" && generalConfig.data.system.sendErrorOnUnknownCommand){
+            }else if (error.type == "unknown_command" && generalConfig.data.ticketSystem.sendErrorOnUnknownCommand){
                 error.msg.channel.send((await opendiscord.builders.messages.getSafe("opendiscord:error-unknown-command").build("text",{guild:error.msg.guild,channel:error.msg.channel,user:error.msg.author,error})).message)
             }
         })
 
         //responder timeout
-        opendiscord.responders.commands.setTimeoutErrorCallback(async (instance,source) => {
-            instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(source,{guild:instance.guild,channel:instance.channel,user:instance.user}))
+        opendiscord.responders.commands.setTimeoutErrorCallback(async (instance,origin) => {
+            return await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(origin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
         },null)
-        opendiscord.responders.buttons.setTimeoutErrorCallback(async (instance,source) => {
-            instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(source,{guild:instance.guild,channel:instance.channel,user:instance.user}))
+        opendiscord.responders.buttons.setTimeoutErrorCallback(async (instance,origin) => {
+            return await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(origin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
         },null)
-        opendiscord.responders.dropdowns.setTimeoutErrorCallback(async (instance,source) => {
-            instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(source,{guild:instance.guild,channel:instance.channel,user:instance.user}))
+        opendiscord.responders.dropdowns.setTimeoutErrorCallback(async (instance,origin) => {
+            return await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(origin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
         },null)
-        opendiscord.responders.modals.setTimeoutErrorCallback(async (instance,source) => {
+        opendiscord.responders.modals.setTimeoutErrorCallback(async (instance,origin) => {
             if (!instance.channel){
-                instance.reply({id:new api.ODId("looks-like-we-got-an-error-here"), ephemeral:true, message:{
+                return await instance.reply({id:new api.ODId("opendiscord:unknown-error"), ephemeral:true, message:{
                     content:":x: **Something went wrong while replying to this modal!**"
                 }})
-                return
             }
-            instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(source,{guild:instance.guild,channel:instance.channel,user:instance.user}))
+            return await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-responder-timeout").build(origin,{guild:instance.guild,channel:instance.channel,user:instance.user}))
         },null)
     }))
 }
 
-export const loadStartListeningInteractionsCode = async () => {
+export async function loadStartListeningInteractionsCode(){
     //START LISTENING TO INTERACTIONS
     opendiscord.code.add(new api.ODCode("opendiscord:start-listening-interactions",13,() => {
         opendiscord.client.slashCommands.startListeningToInteractions()
@@ -67,41 +66,9 @@ export const loadStartListeningInteractionsCode = async () => {
     }))
 }
 
-export const loadDatabaseCleanersCode = async () => {
+export async function loadDatabaseCleanersCode(){
     if (!mainServer) return
-
-    //PANEL DATABASE CLEANER
-    opendiscord.code.add(new api.ODCode("opendiscord:panel-database-cleaner",12,async () => {
-        const validPanels: string[] = []
-
-        //check global database for valid panel embeds
-        for (const panel of (await globalDatabase.getCategory("opendiscord:panel-message") ?? [])){
-            if (!validPanels.includes(panel.key)){
-                try{
-                    const splittedId = panel.key.split("_")
-                    const message = await opendiscord.client.fetchGuildChannelMessage(mainServer,splittedId[0],splittedId[1])
-                    if (message) validPanels.push(panel.key)
-                }catch{}
-            }
-        }
-
-        //remove all unused panels
-        for (const panel of (await globalDatabase.getCategory("opendiscord:panel-message") ?? [])){
-            if (!validPanels.includes(panel.key)){
-                await globalDatabase.delete("opendiscord:panel-message",panel.key)
-                await globalDatabase.delete("opendiscord:panel-update",panel.key)
-            }
-        }
-
-        //delete panel from database on delete
-        opendiscord.client.client.on("messageDelete",async (msg) => {
-            if (await globalDatabase.exists("opendiscord:panel-message",msg.channel.id+"_"+msg.id)){
-                await globalDatabase.delete("opendiscord:panel-message",msg.channel.id+"_"+msg.id)
-                await globalDatabase.delete("opendiscord:panel-update",msg.channel.id+"_"+msg.id)
-            }
-        })
-    }))
-
+    
     //SUFFIX DATABASE CLEANER
     opendiscord.code.add(new api.ODCode("opendiscord:suffix-database-cleaner",11,async () => {
         const validSuffixCounters: string[] = []
@@ -283,41 +250,51 @@ export const loadDatabaseCleanersCode = async () => {
     }))
 }
 
-export const loadPanelAutoUpdateCode = async () => {
+export async function loadPanelAutoUpdateCode(){
     //PANEL AUTO UPDATE
+    const panelMsgState = opendiscord.states.get("opendiscord:panel-message")
     opendiscord.code.add(new api.ODCode("opendiscord:panel-auto-update",7,async () => {
-        const globalDatabase = opendiscord.databases.get("opendiscord:global")
-        const panelIds = await globalDatabase.getCategory("opendiscord:panel-update") ?? []
         if (!mainServer) return
 
-        for (const panelId of panelIds){
-            const panel = opendiscord.panels.get(panelId.value)
-
-            //panel doesn't exist anymore in config and needs to be removed
-            if (!panel){
-                globalDatabase.delete("opendiscord:panel-update",panelId.key)
-                return
-            }
-
+        for (const panelState of (await panelMsgState.listMsgStates()).map((rawState) => rawState.value)){
             try{
-                const splittedId = panelId.key.split("_")
-                const channel = await opendiscord.client.fetchGuildTextChannel(mainServer,splittedId[0])
-                if (!channel) return
-                const message = await opendiscord.client.fetchGuildChannelMessage(mainServer,channel,splittedId[1])
-                if (!message || !message.editable) return
+                //fetch panel (& check if auto-update is required)
+                const panel = opendiscord.panels.get(panelState.data.panelId)
+                if (!panel || !panelState.data.panelAutoUpdate) continue
                 
-                message.edit((await opendiscord.builders.messages.getSafe("opendiscord:panel").build("auto-update",{guild:mainServer,channel,user:opendiscord.client.client.user,panel})).message)
+                //fetch panel channel
+                const channel = await opendiscord.client.fetchGuildTextChannel(mainServer,panelState.channelId)
+                if (!channel) continue
+
+                //fetch panel message
+                const message = await opendiscord.client.fetchChannelMessage(channel,panelState.messageId)
+                if (!message || !message.editable || message.flags.has("Ephemeral")) continue
+                
+                const panelMessage = await message.edit((await opendiscord.builders.messages.getSafe("opendiscord:panel").build("auto-update",{guild:mainServer,channel,user:opendiscord.client.client.user,panel,isSubPanel:false})).message)
+                if (panelMessage) await panelMsgState.setMsgState({channel,message:panelMessage},{
+                    messageOrigin:"auto-update",
+                    panelId:panel.id.value,
+                    panelOptionIds:panel.get("opendiscord:options").value,
+                    panelAutoUpdate:true,
+                    isSubPanel:false
+                },panelMessage.flags.has("Ephemeral"))
+
                 opendiscord.log("Panel in server got auto-updated!","info",[
-                    {key:"channelid",value:splittedId[0]},
-                    {key:"messageid",value:splittedId[1]},
-                    {key:"panel",value:panelId.value}
+                    {key:"channelid",value:panelState.channelId},
+                    {key:"messageid",value:panelState.messageId},
+                    {key:"panel",value:panel.id.value}
                 ])
-            }catch{}
+            }catch{
+                opendiscord.log("Failed to auto-update panel","error",[
+                    {key:"channelid",value:panelState.channelId},
+                    {key:"messageid",value:panelState.messageId}
+                ])
+            }
         }
     }))
 }
 
-export const loadDatabaseSaversCode = async () => {
+export async function loadDatabaseSaversCode(){
     //TICKET SAVER
     opendiscord.code.add(new api.ODCode("opendiscord:ticket-saver",6,() => {
         const mainVersion = opendiscord.versions.get("opendiscord:version")
@@ -382,6 +359,8 @@ export const loadDatabaseSaversCode = async () => {
 }
 
 const loadAutoCode = () => {
+    const interactiveMsgState = opendiscord.states.get("opendiscord:interactive-message")
+
     //AUTOCLOSE TIMEOUT
     opendiscord.code.add(new api.ODCode("opendiscord:autoclose-timeout",3,() => {
         setInterval(async () => {
@@ -400,17 +379,23 @@ const loadAutoCode = () => {
                     if (enabled && (new Date().getTime() - lastMessage.createdTimestamp) >= time){
                         //autoclose ticket
                         await opendiscord.actions.get("opendiscord:close-ticket").run("autoclose",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket,reason:"Autoclose",sendMessage:false})
-                        await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autoclose-message").build("timeout",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
+                        const sentMsg = await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autoclose-message").build("timeout",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
+                        await interactiveMsgState.setMsgState({channel,message:sentMsg},{
+                            messageType:"autoclose-message",
+                            messageOrigin:"other",
+                            messageAuthor:opendiscord.client.client.user.id,
+                            messageReason:"Autoclose"
+                        },false)
                         count++
-                        await opendiscord.stats.get("opendiscord:global").setStat("opendiscord:tickets-autoclosed",1,"increase")
+                        await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-autoclosed",1,"increase")
                     }
                 }
             }
             opendiscord.debug.debug("Finished autoclose timeout cycle!",[
-                {key:"interval",value:opendiscord.defaults.getDefault("autocloseCheckInterval").toString()},
+                {key:"interval",value:opendiscord.fuses.getFuse("autocloseCheckInterval").toString()},
                 {key:"closed",value:count.toString()}
             ])
-        },opendiscord.defaults.getDefault("autocloseCheckInterval"))
+        },opendiscord.fuses.getFuse("autocloseCheckInterval"))
     }))
 
     //AUTOCLOSE LEAVE
@@ -427,8 +412,14 @@ const loadAutoCode = () => {
                     if (enabled){
                         //autoclose ticket
                         await opendiscord.actions.get("opendiscord:close-ticket").run("autoclose",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket,reason:"Autoclose",sendMessage:false})
-                        await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autoclose-message").build("leave",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
-                        await opendiscord.stats.get("opendiscord:global").setStat("opendiscord:tickets-autoclosed",1,"increase")
+                        const sentMsg = await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autoclose-message").build("leave",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
+                        await interactiveMsgState.setMsgState({channel,message:sentMsg},{
+                            messageType:"autoclose-message",
+                            messageOrigin:"other",
+                            messageAuthor:opendiscord.client.client.user.id,
+                            messageReason:"Autoclose"
+                        },false)
+                        await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-autoclosed",1,"increase")
                     }
                 }
             }
@@ -446,7 +437,7 @@ const loadAutoCode = () => {
                 if (lastMessage){
                     //ticket has last message
                     const disableOnClaim = ticket.option.get("opendiscord:autodelete-disable-claim").value && ticket.get("opendiscord:claimed").value
-                    const disableWhenNotClosed = generalConfig.data.system.autodeleteRequiresClosedTicket && !ticket.get("opendiscord:closed").value
+                    const disableWhenNotClosed = generalConfig.data.ticketSystem.autodeleteRequiresClosedTicket && !ticket.get("opendiscord:closed").value
                     
                     const enabled = (disableOnClaim || disableWhenNotClosed) ? false : ticket.get("opendiscord:autodelete-enabled").value
                     const days = ticket.get("opendiscord:autodelete-days").value
@@ -457,15 +448,15 @@ const loadAutoCode = () => {
                         await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autodelete-message").build("timeout",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
                         await opendiscord.actions.get("opendiscord:delete-ticket").run("autodelete",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket,reason:"Autodelete",sendMessage:false,withoutTranscript:false})
                         count++
-                        await opendiscord.stats.get("opendiscord:global").setStat("opendiscord:tickets-autodeleted",1,"increase")
+                        await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-autodeleted",1,"increase")
                     }
                 }
             }
             opendiscord.debug.debug("Finished autodelete timeout cycle!",[
-                {key:"interval",value:opendiscord.defaults.getDefault("autodeleteCheckInterval").toString()},
+                {key:"interval",value:opendiscord.fuses.getFuse("autodeleteCheckInterval").toString()},
                 {key:"deleted",value:count.toString()}
             ])
-        },opendiscord.defaults.getDefault("autodeleteCheckInterval"))
+        },opendiscord.fuses.getFuse("autodeleteCheckInterval"))
     }))
 
     //AUTODELETE LEAVE
@@ -477,14 +468,14 @@ const loadAutoCode = () => {
                     if (!channel) return
                     //ticket has been created by this user
                     const disableOnClaim = ticket.option.get("opendiscord:autodelete-disable-claim").value && ticket.get("opendiscord:claimed").value
-                    const disableWhenNotClosed = generalConfig.data.system.autodeleteRequiresClosedTicket && !ticket.get("opendiscord:closed").value
+                    const disableWhenNotClosed = generalConfig.data.ticketSystem.autodeleteRequiresClosedTicket && !ticket.get("opendiscord:closed").value
                     const enabled = (disableOnClaim || disableWhenNotClosed || !ticket.get("opendiscord:autodelete-enabled").value) ? false : ticket.option.get("opendiscord:autodelete-enable-leave")
 
                     if (enabled){
                         //autodelete ticket
                         await channel.send((await opendiscord.builders.messages.getSafe("opendiscord:autodelete-message").build("leave",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket})).message)
                         await opendiscord.actions.get("opendiscord:delete-ticket").run("autodelete",{guild:channel.guild,channel,user:opendiscord.client.client.user,ticket,reason:"Autodelete",sendMessage:false,withoutTranscript:false})
-                        await opendiscord.stats.get("opendiscord:global").setStat("opendiscord:tickets-autodeleted",1,"increase")
+                        await opendiscord.statistics.get("opendiscord:global").setStat("opendiscord:tickets-autodeleted",1,"increase")
                     }
                 }
             }

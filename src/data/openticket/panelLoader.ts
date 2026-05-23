@@ -1,9 +1,9 @@
-import {opendiscord, api, utilities} from "../../index"
+import {opendiscord, api, utilities} from "../../index.js"
 import * as discord from "discord.js"
 
 const lang = opendiscord.languages
 
-export const loadAllPanels = async () => {
+export async function loadAllPanels(){
     const panelConfig = opendiscord.configs.get("opendiscord:panels")
     if (!panelConfig) return
 
@@ -23,7 +23,7 @@ export const loadAllPanels = async () => {
     })
 }
 
-export const loadPanel = (panel:api.ODJsonConfig_DefaultPanelType) => {
+export const loadPanel = (panel:api.ODPanelsJsonConfig_Panel) => {
     return new api.ODPanel(panel.id,[
         new api.ODPanelData("opendiscord:name",panel.name),
         new api.ODPanelData("opendiscord:options",panel.options),
@@ -33,8 +33,11 @@ export const loadPanel = (panel:api.ODJsonConfig_DefaultPanelType) => {
         new api.ODPanelData("opendiscord:embed",panel.embed),
 
         new api.ODPanelData("opendiscord:dropdown-placeholder",panel.settings.dropdownPlaceholder),
+        new api.ODPanelData("opendiscord:maximum-buttons-per-row",panel.settings.maximumButtonsPerRow),
+        
         new api.ODPanelData("opendiscord:enable-max-tickets-warning-text",panel.settings.enableMaxTicketsWarningInText),
         new api.ODPanelData("opendiscord:enable-max-tickets-warning-embed",panel.settings.enableMaxTicketsWarningInEmbed),
+
         new api.ODPanelData("opendiscord:describe-options-layout",panel.settings.describeOptionsLayout),
         new api.ODPanelData("opendiscord:describe-options-custom-title",panel.settings.describeOptionsCustomTitle),
         new api.ODPanelData("opendiscord:describe-options-in-text",panel.settings.describeOptionsInText),
@@ -93,7 +96,7 @@ export function describePanelOptions(mode:"fields"|"text", panel:api.ODPanel): {
             }
             if (layout == "detailed"){
                 const optionAdmins = [...opt.get("opendiscord:admins").value]
-                if (generalConfig.data.system.showGlobalAdminsInPanelRoles){
+                if (generalConfig.data.ticketSystem.showGlobalAdminsInPanelRoles){
                     for (const admin of generalConfig.data.globalAdmins){
                         if (!optionAdmins.includes(admin)) optionAdmins.push(admin)
                     }
@@ -147,7 +150,7 @@ export function describePanelOptions(mode:"fields"|"text", panel:api.ODPanel): {
             }
             if (layout == "detailed"){
                 const optionAdmins = [...opt.get("opendiscord:admins").value]
-                if (generalConfig.data.system.showGlobalAdminsInPanelRoles){
+                if (generalConfig.data.ticketSystem.showGlobalAdminsInPanelRoles){
                     for (const admin of generalConfig.data.globalAdmins){
                         if (!optionAdmins.includes(admin)) optionAdmins.push(admin)
                     }
