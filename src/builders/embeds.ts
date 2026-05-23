@@ -626,11 +626,19 @@ const ticketEmbeds = () => {
                 if (generalConfig.data.ticketSystem.displayFieldsWithQuestions) instance.addFields(...embedOptions.fields)
                 
                 const answers = ticket.get("opendiscord:answers").value
-                answers.forEach((answer) => {
-                    if (!answer.value || answer.value.length == 0) return
-                    if (generalConfig.data.ticketSystem.questionFieldsInCodeBlock) instance.addFields({name:answer.name,value:"```"+answer.value.slice(0,1024-6)+"```",inline:false})
-                    else instance.addFields({name:answer.name,value:answer.value,inline:false})
-                })
+                for (const answer of answers){
+                    if (answer.type == "file-upload"){
+                        //render file upload fields
+                        if (!answer.files) continue
+                        const renderedFiles = answer.files.map((file) => `- [${file.name}](${file.url})`).join("\n")
+                        instance.addFields({name:answer.name,value:renderedFiles,inline:false})
+
+                    }else if (typeof answer.value == "string" && answer.value.length > 0){
+                        //render other fields
+                        if (generalConfig.data.ticketSystem.questionFieldsInCodeBlock) instance.addFields({name:answer.name,value:"```"+answer.value.slice(0,1024-6)+"```",inline:false})
+                        else instance.addFields({name:answer.name,value:answer.value,inline:false})
+                    }
+                }
             }else if (embedOptions.fields){
                 instance.setFields(embedOptions.fields)
             }

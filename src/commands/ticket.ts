@@ -50,7 +50,7 @@ export async function registerCommandResponders(){
             //start ticket creation
             if (option.exists("opendiscord:questions") && option.get("opendiscord:questions").value.length > 0){
                 //SEND MODAL
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:ticket-questions").build(origin,{guild,channel,user,option}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build(origin,{guild,channel,user,option}))
             }else{
                 //check ticket permissions (modals need check after submit)
                 if (!(await checkTicketCreationPerms(instance,origin,guild,user,option))) return cancel()
@@ -99,7 +99,7 @@ export async function registerButtonResponders(){
             //start ticket creation
             if (option.exists("opendiscord:questions") && option.get("opendiscord:questions").value.length > 0){
                 //SEND MODAL
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:ticket-questions").build("panel-button",{guild,channel,user,option}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build("panel-button",{guild,channel,user,option}))
             }else{
                 //check ticket permissions (modals need check after submit)
                 if (!(await checkTicketCreationPerms(instance,"panel-button",guild,user,option))) return cancel()
@@ -141,7 +141,7 @@ export async function registerDropdownResponders(){
             //start ticket creation
             if (option.exists("opendiscord:questions") && option.get("opendiscord:questions").value.length > 0){
                 //SEND MODAL
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:ticket-questions").build("panel-dropdown",{guild,channel,user,option}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:ticket-questions").build("panel-dropdown",{guild,channel,user,option}))
             }else{
                 //check ticket permissions (modals need check after submit)
                 if (!(await checkTicketCreationPerms(instance,"panel-dropdown",guild,user,option))) return cancel()
@@ -193,26 +193,47 @@ export async function registerModalResponders(){
             if (!(await checkTicketCreationPerms(instance,originalOrigin,guild,user,option))) return cancel()
 
             //get answers
-            const answers: {id:string,name:string,type:"short"|"paragraph",value:string|null}[] = []
-            option.get("opendiscord:questions").value.forEach((id) => {
-                const question = opendiscord.questions.get(id)
-                if (!question) return
-                if (question instanceof api.ODShortQuestion){
-                    answers.push({
-                        id,
-                        name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : id,
-                        type:"short",
-                        value:instance.values.getTextField(id,false)
-                    })
-                }else if (question instanceof api.ODParagraphQuestion){
-                    answers.push({
-                        id,
-                        name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : id,
-                        type:"paragraph",
-                        value:instance.values.getTextField(id,false)
-                    })
-                }
-            })
+            const answers: api.ODQuestionAnswer[] = []
+            for (const questionId of option.get("opendiscord:questions").value){
+                const question = opendiscord.questions.get(questionId)
+                if (!question) continue
+                if (question instanceof api.ODShortQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"short",
+                    value:instance.values.getTextField(questionId,false)
+                })
+                else if (question instanceof api.ODParagraphQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"paragraph",
+                    value:instance.values.getTextField(questionId,false)
+                })
+                else if (question instanceof api.ODDropdownQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"dropdown",
+                    value:instance.values.getStringDropdownValues(questionId)[0] ?? null
+                })
+                else if (question instanceof api.ODRadioSelectQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"radio-select",
+                    value:instance.values.getRadioGroup(questionId,false)
+                })
+                else if (question instanceof api.ODCheckboxSelectQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"checkbox-select",
+                    value:(instance.values.getCheckboxGroup(questionId).length > 0) ? instance.values.getCheckboxGroup(questionId).map((opt) => "> "+opt).join("\n") : null
+                })
+                else if (question instanceof api.ODFileUploadQuestion) answers.push({
+                    id:questionId,
+                    name:question.exists("opendiscord:name") ? question.get("opendiscord:name")?.value : questionId,
+                    type:"file-upload",
+                    files:(instance.values.getUploadedFiles(questionId).length > 0) ? instance.values.getUploadedFiles(questionId).map(({id,url,name,title,description,contentType}) => ({id,url,name,title,description,contentType})) : []
+                })
+            }
             
             await instance.defer((generalConfig.data.ticketSystem.replyOnTicketCreation) ? "reply" : "update",true)
 

@@ -1412,6 +1412,19 @@ async function saveQuickSetupConfig(){
             ]
         },
         {
+            id:"example-question-6",
+            name:"Example Question 6",
+            description:"This is a file upload question.",
+            type:"file-upload",
+            required:true,
+
+            limits:{
+                enabled:false,
+                min:0,
+                max:1
+            }
+        },
+        {
             id:"example-text-display",
             type:"text-display",
             textContents:"This is a text display. It isn't a question, but allows you to display a text, explaination or details."

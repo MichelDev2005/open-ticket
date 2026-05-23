@@ -312,6 +312,19 @@ export const migrations = [
                         ]
                     },
                     {
+                        id:"example-file-upload",
+                        name:"Example File Upload",
+                        description:"With this question type, users can upload one or multiple files.",
+                        type:"file-upload",
+                        required:true,
+
+                        limits:{
+                            enabled:false,
+                            min:0,
+                            max:1
+                        }
+                    },
+                    {
                         id:"example-text-display-question",
                         type:"text-display",
                         textContents:"This is a text display. It isn't a question, but allows you to display a text, explaination or details."

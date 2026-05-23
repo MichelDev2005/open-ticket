@@ -647,7 +647,7 @@ const main = async () => {
     //load modal builders
     opendiscord.log("Loading modals...","system")
     if (opendiscord.sharedFuses.getFuse("modalBuildersLoading")){
-        await (await import("./builders/modals.js")).registerAllModals()
+        //Deprecated, moved to "modal components"
     }
     await opendiscord.events.get("onModalBuilderLoad").emit([opendiscord.builders.modals,opendiscord.builders,opendiscord.actions])
     await opendiscord.events.get("afterModalBuildersLoaded").emit([opendiscord.builders.modals,opendiscord.builders,opendiscord.actions])
@@ -671,7 +671,7 @@ const main = async () => {
     //load modal components
     opendiscord.log("Loading modal components...","system")
     if (opendiscord.sharedFuses.getFuse("modalComponentsLoading")){
-        //TODO!!
+        await (await import("./components/modals.js")).registerModalComponents()
     }
     await opendiscord.events.get("onModalComponentLoad").emit([opendiscord.components.modals,opendiscord.components,opendiscord.actions])
     await opendiscord.events.get("afterModalComponentsLoaded").emit([opendiscord.components.modals,opendiscord.components,opendiscord.actions])

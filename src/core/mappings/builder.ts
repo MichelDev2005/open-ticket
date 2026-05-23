@@ -235,14 +235,7 @@ export interface ODMessageManagerIdMappings extends api.ODMessageManagerIdConstr
  * It's used to generate typescript declarations for this class.
  */
 export interface ODModalManagerIdMappings extends api.ODModalManagerIdConstraint {
-    "opendiscord:ticket-questions":{origin:"panel-button"|"panel-dropdown"|"slash"|"text"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,option:ODTicketOption},workers:"opendiscord:ticket-questions"}
-    "opendiscord:close-ticket-reason":{origin:"ticket-message"|"reopen-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:close-ticket-reason"}
-    "opendiscord:reopen-ticket-reason":{origin:"ticket-message"|"close-message"|"autoclose-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:reopen-ticket-reason"}
-    "opendiscord:delete-ticket-reason":{origin:"ticket-message"|"reopen-message"|"close-message"|"autoclose-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:delete-ticket-reason"}
-    "opendiscord:claim-ticket-reason":{origin:"ticket-message"|"unclaim-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:claim-ticket-reason"}
-    "opendiscord:unclaim-ticket-reason":{origin:"ticket-message"|"claim-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:unclaim-ticket-reason"}
-    "opendiscord:pin-ticket-reason":{origin:"ticket-message"|"unpin-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:pin-ticket-reason"}
-    "opendiscord:unpin-ticket-reason":{origin:"ticket-message"|"pin-message"|"other",params:{guild:discord.Guild,channel:discord.TextBasedChannel,user:discord.User,ticket:ODTicket,message:discord.Message},workers:"opendiscord:unpin-ticket-reason"}
+    //Deprecated, moved to ODModalComponentManagerIdMappings
 }
 
 /////////////////////////////

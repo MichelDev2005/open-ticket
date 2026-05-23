@@ -169,7 +169,7 @@ export async function registerVerifyBars(){
                 }
             }else if (params.selectedButtonId == "accept-with-reason"){
                 //PIN WITH REASON (MODAL)
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:pin-ticket-reason").build("other",{guild,channel,user,ticket,message}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:pin-ticket-reason").build("other",{guild,channel,user,ticket,message}))
             }
         })
     ])

@@ -168,7 +168,7 @@ export async function registerVerifyBars(){
                 }
             }else if (params.selectedButtonId == "accept-with-reason"){
                 //UNCLAIM WITH REASON (MODAL)
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:unclaim-ticket-reason").build("other",{guild,channel,user,ticket,message}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:unclaim-ticket-reason").build("other",{guild,channel,user,ticket,message}))
             }
         })
     ])

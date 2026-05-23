@@ -686,7 +686,21 @@ export const defaultQuestionsStructure = new api.ODCheckerArrayStructure("opendi
         ],cliDisplayName:"Choice",cliDisplayDescription:"A choice for this checkbox select question."}),cliDisplayName:"Choices",cliDisplayPropertyName:"choice",cliDisplayDescription:"Manage all available choices of this checkbox select question."})}
     ],cliDisplayName:"Checkbox Select Question",cliDisplayDescription:"Manage, customise and configure the checkbox select question to your preference."})},
 
-],cliDisplayName:"Question",cliDisplayDescription:"Manage a question of one of the 6 types: short, paragraph, text-display, dropdown, radio-select, checkbox-select."}),cliDisplayName:"Questions",cliDisplayDescription:"A list of all questions in the bot. Here you can add, modify & remove existing questions or customise them to your preference."})
+    //FILE UPLOAD QUESTION
+    {name:"File Upload Question",priority:0,properties:[{key:"type",value:"file-upload"}],checker:new api.ODCheckerObjectStructure("opendiscord:file-upload-question",{cliDisplayKeyInParentArray:"name",cliDisplayAdditionalKeysInParentArray:["id","type"],children:[
+        {key:"id",checker:new api.ODCheckerCustomStructure_UniqueId("opendiscord:question-id","openticket","question-ids",{regex:/^[A-Za-z0-9-éèçàêâôûî]+$/,minLength:3,maxLength:40,cliDisplayName:"Id",cliDisplayDescription:"The id of this question. Used in ticket options."})},
+        {key:"name",checker:new api.ODCheckerStringStructure("opendiscord:question-name",{minLength:3,maxLength:45,cliDisplayName:"Name",cliDisplayDescription:"The name of this question."})},
+        {key:"description",checker:new api.ODCheckerStringStructure("opendiscord:question-description",{maxLength:100,cliDisplayName:"Description",cliDisplayDescription:"The description of this question."})},
+        {key:"required",checker:new api.ODCheckerBooleanStructure("opendiscord:question-required",{cliDisplayName:"Required",cliDisplayDescription:"Is this question required? If not, it can be left empty."})},
+        
+        {key:"limits",checker:new api.ODCheckerEnabledObjectStructure("opendiscord:amount",{property:"enabled",enabledValue:true,checker:new api.ODCheckerObjectStructure("opendiscord:amount",{children:[
+            {key:"enabled",checker:new api.ODCheckerBooleanStructure("opendiscord:amount-enabled",{cliDisplayName:"Enabled",cliDisplayDescription:"Enable/disable checking the min/max amount of uploaded files."})},
+            {key:"min",checker:new api.ODCheckerNumberStructure("opendiscord:amount-min",{min:0,max:10,floatAllowed:false,cliDisplayName:"Min Amount",cliDisplayDescription:"The minimum amount of uploaded files required."})},
+            {key:"max",checker:new api.ODCheckerNumberStructure("opendiscord:amount-max",{min:1,max:10,floatAllowed:false,cliInitDefaultValue:10,cliDisplayName:"Max Amount",cliDisplayDescription:"The maximum amount of uploaded files allowed."})},
+        ],cliDisplayName:"Upload Limits",cliDisplayDescription:"Verify the minimum or maximum amount of uploaded files."}),cliDisplayName:"Checkbox Limits",cliDisplayDescription:"Verify the minimum or maximum amount of uploaded files."})},
+    ],cliDisplayName:"Checkbox Select Question",cliDisplayDescription:"Manage, customise and configure the file upload question to your preference."})},
+
+],cliDisplayName:"Question",cliDisplayDescription:"Manage a question of one of the 7 types: short, paragraph, text-display, dropdown, radio-select, checkbox-select, file-upload."}),cliDisplayName:"Questions",cliDisplayDescription:"A list of all questions in the bot. Here you can add, modify & remove existing questions or customise them to your preference."})
 
 export const defaultTranscriptsStructure = new api.ODCheckerObjectStructure("opendiscord:transcripts",{children:[
     //GENERAL

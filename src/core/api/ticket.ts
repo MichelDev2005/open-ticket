@@ -4,6 +4,7 @@
 import * as api from "@open-discord-bots/framework/api"
 import { ODTicketOption } from "./option.js"
 import * as discord from "discord.js"
+import { ODQuestionAnswer } from "./question.js"
 
 /**## ODTicketIdConstraint `type`
  * The constraint/layout for id mappings/interfaces of the `ODTicket` class.
@@ -48,7 +49,7 @@ export interface ODTicketIdMappings extends ODTicketIdConstraint {
     "opendiscord:autodelete-enabled":ODTicketData<boolean>,
     "opendiscord:autodelete-days":ODTicketData<number>,
 
-    "opendiscord:answers":ODTicketData<{id:string,name:string,type:"short"|"paragraph",value:string|null}[]>,
+    "opendiscord:answers":ODTicketData<ODQuestionAnswer[]>,
     "opendiscord:priority":ODTicketData<number>,
     "opendiscord:topic":ODTicketData<string>,
     "opendiscord:message-sent":ODTicketData<boolean>,

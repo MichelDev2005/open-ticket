@@ -286,6 +286,21 @@ export const defaultQuestionsFormatter = new fjs.TopLevelCommentFormatter(new fj
             new fjs.PropertyFormatter("selectedByDefault"),
         ])),
     ])},
+    {key:"type",value:"file-upload",formatter:new fjs.ObjectFormatter(null,true,[
+        new fjs.MultiCommentFormatter("A file upload modal question where users can upload one or more files."),
+        new fjs.PropertyFormatter("id"),
+        new fjs.PropertyFormatter("name"),
+        new fjs.PropertyFormatter("description",new fjs.SingleCommentFormatter("Leave empty to disable")),
+        new fjs.PropertyFormatter("type"),
+        new fjs.PropertyFormatter("required"),
+        new fjs.TextFormatter(""),
+        new fjs.ObjectFormatter("limits",true,[
+            new fjs.MultiCommentFormatter("Configure minimum/maximum amount of files to upload."),
+            new fjs.PropertyFormatter("enabled"),
+            new fjs.PropertyFormatter("min"),
+            new fjs.PropertyFormatter("max"),
+        ]),
+    ])},
 ])))
 
 

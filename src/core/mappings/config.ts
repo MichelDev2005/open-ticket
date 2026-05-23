@@ -619,6 +619,18 @@ export interface ODQuestionsJsonConfig_CheckboxLimits {
     max:number
 }
 
+/**## ODQuestionsJsonConfig_FileUploadLimits `interface`
+ * Verify the amount of uploaded files in a question.
+ */
+export interface ODQuestionsJsonConfig_FileUploadLimits {
+    /**Enable file limits. */
+    enabled:boolean,
+    /**The minimum amount of uploaded files. */
+    min:number,
+    /**The maximum amount of uploaded files. */
+    max:number
+}
+
 /**## ODQuestionsJsonConfig_DropdownChoice `interface`
  * A dropdown choice used in `ODQuestionsJsonConfig_DropdownQuestion`
  */
@@ -654,7 +666,7 @@ export interface ODQuestionsJsonConfig_BaseQuestion {
     /**The description of this question. (Leave empty for none) */
     description:string,
     /**The type of this question. */
-    type:"short"|"paragraph"|"text-display"|"dropdown"|"radio-select"|"checkbox-select",
+    type:"short"|"paragraph"|"text-display"|"dropdown"|"radio-select"|"checkbox-select"|"file-upload",
     /**Is this question required? */
     required:boolean,
 }
@@ -662,9 +674,7 @@ export interface ODQuestionsJsonConfig_BaseQuestion {
 /**## ODQuestionsJsonConfig_TextDisplayQuestion `interface`
  * All properties for a text-display in the `questions.jsonc` config!
  */
-export interface ODQuestionsJsonConfig_TextDisplayQuestion {
-    /**The id of this text-display. */
-    id:string,
+export interface ODQuestionsJsonConfig_TextDisplayQuestion extends Omit<ODQuestionsJsonConfig_BaseQuestion,"name"|"description"|"required"> {
     /**The type of this question. */
     type:"text-display",
     /**The text contents to show in the modal. */
@@ -724,6 +734,15 @@ export interface ODQuestionsJsonConfig_CheckboxSelectQuestion extends ODQuestion
     choices:ODQuestionsJsonConfig_RadioCheckboxChoice[]
 }
 
+/**## ODQuestionsJsonConfig_FileUploadQuestion `interface`
+ * All properties for checkbox select questions in the `questions.jsonc` config!
+ */
+export interface ODQuestionsJsonConfig_FileUploadQuestion extends ODQuestionsJsonConfig_BaseQuestion {
+    type:"file-upload",
+    /**Verify the amount of uploaded files (minimum/maximum). */
+    limits:ODQuestionsJsonConfig_FileUploadLimits
+}
+
 /**## ODQuestionsJsonConfig_QuestionsData `type`
  * All contents of the `questions.jsonc` config file.
  */
@@ -733,7 +752,8 @@ export type ODQuestionsJsonConfig_QuestionsData = (
     ODQuestionsJsonConfig_TextDisplayQuestion|
     ODQuestionsJsonConfig_DropdownQuestion|
     ODQuestionsJsonConfig_RadioSelectQuestion|
-    ODQuestionsJsonConfig_CheckboxSelectQuestion
+    ODQuestionsJsonConfig_CheckboxSelectQuestion|
+    ODQuestionsJsonConfig_FileUploadQuestion
 )[]
 
 ///////////////////////////////////////

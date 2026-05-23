@@ -168,7 +168,7 @@ export async function registerVerifyBars(){
                 }
             }else if (params.selectedButtonId == "accept-with-reason"){
                 //UNPIN WITH REASON (MODAL)
-                instance.modal(await opendiscord.builders.modals.getSafe("opendiscord:unpin-ticket-reason").build("other",{guild,channel,user,ticket,message}))
+                instance.modal(await opendiscord.components.modals.get("opendiscord:unpin-ticket-reason").build("other",{guild,channel,user,ticket,message}))
             }
         })
     ])

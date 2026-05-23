@@ -8,6 +8,7 @@ import { ODTicket, ODTicketClearFilter } from "../api/ticket.js"
 import { ODTranscriptCompiler, ODTranscriptCompilerCompileResult } from "../api/transcript.js"
 import { ODRole, ODRoleUpdateMode, ODRoleUpdateResult } from "../api/role.js"
 import { ODPriorityLevel } from "../api/priority.js"
+import { ODQuestionAnswer } from "../api/question.js"
 
 /**## ODActionManagerIdMappings `interface`
  * A list of all available IDs in the default `ODActionManager` class in `opendiscord`.
@@ -28,7 +29,7 @@ export interface ODActionManagerIdMappings extends api.ODActionManagerIdConstrai
     },
     "opendiscord:create-ticket":{
         origin:"panel-button"|"panel-dropdown"|"slash"|"text"|"other",
-        params:{guild:discord.Guild,user:discord.User,option:ODTicketOption,answers:{id:string,name:string,type:"short"|"paragraph",value:string|null}[]},
+        params:{guild:discord.Guild,user:discord.User,option:ODTicketOption,answers:ODQuestionAnswer[]},
         result:{channel:discord.GuildTextBasedChannel,ticket:ODTicket},
         workers:"opendiscord:create-ticket"|"opendiscord:send-ticket-message"|"opendiscord:discord-logs"|"opendiscord:logs"
     },
