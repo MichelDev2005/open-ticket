@@ -21,7 +21,8 @@
         "testnc": "node index.js --no-compile --dev-config --dev-database --soft-plugins",
         "tools:mergelang": "bun run .tools/mergeTranslations.js",
         "tools:sponsors": "bun run .tools/createSponsors.ts",
-        "tools:contributors": "bun run .tools/createContributors.ts"
+        "tools:contributors": "bun run .tools/createContributors.ts",
+        "docker:build":".tools/build-docker.sh djj123dj/open-ticket --no-push"
     },
     "type": "module",
     "license": "GPL-3.0-only",

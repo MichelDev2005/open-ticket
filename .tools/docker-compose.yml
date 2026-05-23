@@ -8,7 +8,6 @@ services:
       - plugins:/home/container/plugins
     restart: unless-stopped
     container_name: open-ticket
-
 volumes:
   config:
   database:

@@ -2,3 +2,12 @@
 node_modules/
 dist/
 .git/
+.backup/
+.vscode/
+devconfig/
+devdatabase/
+build-docker
+otdebug.txt
+plugins/*
+!plugins/example-plugin/
+!plugins/example-plugin/**
