@@ -1,6 +1,8 @@
 ///////////////////////////////////////
 //OPEN TICKET MAIN MODULE
 ///////////////////////////////////////
+import fs from "fs"
+import path from "path"
 import * as api from "./api.js"
 import * as utilities from "@open-discord-bots/framework/utilities"
 
@@ -108,7 +110,7 @@ export class ODOpenTicketMain extends api.ODMain {
         },"openticket")
 
         this.livestatus.useMain(this)
-        this.versions.add(api.ODVersion.fromString("opendiscord:version","v4.2.0"))
+        this.versions.add(api.ODVersion.fromString("opendiscord:version",this.readVersionFromPackage()))
         this.versions.add(api.ODVersion.fromString("opendiscord:transcripts","v2.1.0"))
 
         //OPEN TICKET
@@ -133,5 +135,10 @@ export class ODOpenTicketMain extends api.ODMain {
         this.transcripts = new api.ODMappedTranscriptManager(debug,this.tickets,client,permissions)
         this.roles = new api.ODRoleManager(debug)
         this.priorities = new api.ODMappedPriorityManager(debug)
+    }
+
+    private readVersionFromPackage(): string {
+        const packageJson: {version:string} = JSON.parse(fs.readFileSync(path.join(process.cwd(),"./package.json")).toString())
+        return "v"+packageJson.version
     }
 }

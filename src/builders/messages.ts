@@ -566,8 +566,8 @@ const ticketMessages = () => {
     messages.add(new api.ODMessage("opendiscord:ticket-action-dm"))
     messages.get("opendiscord:ticket-action-dm").workers.add(
         new api.ODWorker("opendiscord:ticket-action-dm",0,async (instance,params,origin) => {
-            const {guild,channel,user,mode,ticket,reason,additionalData} = params
-            instance.addEmbed(await embeds.getSafe("opendiscord:ticket-action-dm").build(origin,{guild,channel,user,mode,ticket,reason,additionalData}))
+            const {guild,channel,user,mode,ticket,reason,additionalData,additionalData2} = params
+            instance.addEmbed(await embeds.getSafe("opendiscord:ticket-action-dm").build(origin,{guild,channel,user,mode,ticket,reason,additionalData,additionalData2}))
         })
     )
 
@@ -575,8 +575,8 @@ const ticketMessages = () => {
     messages.add(new api.ODMessage("opendiscord:ticket-action-logs"))
     messages.get("opendiscord:ticket-action-logs").workers.add(
         new api.ODWorker("opendiscord:ticket-action-logs",0,async (instance,params,origin) => {
-            const {guild,channel,user,mode,ticket,reason,additionalData} = params
-            instance.addEmbed(await embeds.getSafe("opendiscord:ticket-action-logs").build(origin,{guild,channel,user,mode,ticket,reason,additionalData}))
+            const {guild,channel,user,mode,ticket,reason,additionalData,additionalData2} = params
+            instance.addEmbed(await embeds.getSafe("opendiscord:ticket-action-logs").build(origin,{guild,channel,user,mode,ticket,reason,additionalData,additionalData2}))
         })
     )
 }

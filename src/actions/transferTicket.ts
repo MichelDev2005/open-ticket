@@ -121,6 +121,22 @@ export async function registerActions(){
         }),
         new api.ODWorker("opendiscord:discord-logs",1,async (instance,params,origin,cancel) => {
             const {guild,channel,user,ticket,newCreator,reason} = params
+
+            const lastCreatorId = ticket.get("opendiscord:previous-creators").value.at(-1)
+            if (!lastCreatorId) return
+            const lastCreator = await opendiscord.client.fetchUser(lastCreatorId)
+            if (!lastCreator) return
+
+            //to logs
+            if (generalConfig.data.logs.enabled && generalConfig.data.logs.logMessages.transferring.logs){
+                const logChannel = opendiscord.posts.get("opendiscord:logs")
+                if (logChannel) logChannel.send(await opendiscord.builders.messages.getSafe("opendiscord:ticket-action-logs").build(origin,{guild,channel,user,ticket,mode:"transfer",reason,additionalData:lastCreator,additionalData2:newCreator}))
+            }
+
+            //to dm
+            const creator = await opendiscord.tickets.getTicketUser(ticket,"creator")
+            if (creator && generalConfig.data.logs.logMessages.transferring.dm) await opendiscord.client.sendUserDm(creator,await opendiscord.builders.messages.getSafe("opendiscord:ticket-action-dm").build(origin,{guild,channel,user,ticket,mode:"transfer",reason,additionalData:lastCreator,additionalData2:newCreator}))
+        
         }),
         new api.ODWorker("opendiscord:logs",0,(instance,params,origin,cancel) => {
             const {guild,channel,user,ticket,newCreator} = params

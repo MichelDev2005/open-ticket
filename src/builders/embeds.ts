@@ -812,7 +812,7 @@ const ticketEmbeds = () => {
     embeds.add(new api.ODEmbed("opendiscord:ticket-action-dm"))
     embeds.get("opendiscord:ticket-action-dm").workers.add(
         new api.ODWorker("opendiscord:ticket-action-dm",0,async (instance,params,origin) => {
-            const {user,mode,ticket,reason,additionalData} = params
+            const {user,mode,ticket,reason,additionalData,additionalData2} = params
             const channel = await opendiscord.tickets.getTicketChannel(ticket)
             
             instance.setColor(generalConfig.data.mainColor)
@@ -853,6 +853,12 @@ const ticketEmbeds = () => {
             }else if (mode == "remove"){
                 instance.setTitle(utilities.emojiTitle("👤",lang.getTranslation("actions.titles.remove")))
                 instance.setDescription(lang.getTranslationWithParams("actions.logs.removeDm",[(additionalData instanceof discord.User ? discord.userMention(additionalData.id) : "<unknown>")]))
+            }else if (mode == "priority"){
+                instance.setTitle(utilities.emojiTitle("🚨",lang.getTranslation("actions.titles.prioritySet")))
+                instance.setDescription(lang.getTranslationWithParams("actions.logs.prioritySetDm",[(typeof additionalData === "string" ? "**"+additionalData+"**" : "**<unknown>**")]))
+            }else if (mode == "transfer"){
+                instance.setTitle(utilities.emojiTitle("🚨",lang.getTranslation("actions.titles.transfer")))
+                instance.setDescription(lang.getTranslationWithParams("actions.logs.transferDm",[(additionalData instanceof discord.User ? discord.userMention(additionalData.id) : "<unknown>"),(additionalData2 instanceof discord.User ? discord.userMention(additionalData2.id) : "<unknown>")]))
             }
         })
     )
@@ -861,7 +867,7 @@ const ticketEmbeds = () => {
     embeds.add(new api.ODEmbed("opendiscord:ticket-action-logs"))
     embeds.get("opendiscord:ticket-action-logs").workers.add(
         new api.ODWorker("opendiscord:ticket-action-logs",0,async (instance,params,origin) => {
-            const {user,mode,ticket,reason,additionalData} = params
+            const {user,mode,ticket,reason,additionalData,additionalData2} = params
             const channel = await opendiscord.tickets.getTicketChannel(ticket)
 
             instance.setColor(generalConfig.data.mainColor)
@@ -907,6 +913,12 @@ const ticketEmbeds = () => {
             }else if (mode == "remove"){
                 instance.setTitle(utilities.emojiTitle("👤",lang.getTranslation("actions.titles.remove")))
                 instance.setDescription(lang.getTranslationWithParams("actions.logs.removeLog",[(additionalData instanceof discord.User ? discord.userMention(additionalData.id) : "<unknown>"),discord.userMention(user.id)]))
+            }else if (mode == "priority"){
+                instance.setTitle(utilities.emojiTitle("🚨",lang.getTranslation("actions.titles.prioritySet")))
+                instance.setDescription(lang.getTranslationWithParams("actions.logs.prioritySetLog",[(typeof additionalData === "string" ? "**"+additionalData+"**" : "**<unknown>**"),discord.userMention(user.id)]))
+            }else if (mode == "transfer"){
+                instance.setTitle(utilities.emojiTitle("🚨",lang.getTranslation("actions.titles.transfer")))
+                instance.setDescription(lang.getTranslationWithParams("actions.logs.transferLog",[(additionalData instanceof discord.User ? discord.userMention(additionalData.id) : "<unknown>"),(additionalData2 instanceof discord.User ? discord.userMention(additionalData2.id) : "<unknown>"),discord.userMention(user.id)]))
             }
         })
     )

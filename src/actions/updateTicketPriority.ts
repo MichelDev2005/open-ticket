@@ -51,7 +51,19 @@ export async function registerActions(){
             openticketUtils.updateTicketMessage(guild,channel,user,ticket)
         }),
         new api.ODWorker("opendiscord:discord-logs",1,async (instance,params,origin,cancel) => {
-            const {guild,channel,user,ticket} = params
+            const {guild,channel,user,ticket,reason,newPriority} = params
+
+            const renderedPriority = newPriority.renderDisplayName()
+            
+            //to logs
+            if (generalConfig.data.logs.enabled && generalConfig.data.logs.logMessages.priorityChange.logs){
+                const logChannel = opendiscord.posts.get("opendiscord:logs")
+                if (logChannel) logChannel.send(await opendiscord.builders.messages.getSafe("opendiscord:ticket-action-logs").build(origin,{guild,channel,user,ticket,mode:"priority",reason,additionalData:renderedPriority}))
+            }
+
+            //to dm
+            const creator = await opendiscord.tickets.getTicketUser(ticket,"creator")
+            if (creator && generalConfig.data.logs.logMessages.priorityChange.dm) await opendiscord.client.sendUserDm(creator,await opendiscord.builders.messages.getSafe("opendiscord:ticket-action-dm").build(origin,{guild,channel,user,ticket,mode:"priority",reason,additionalData:renderedPriority}))
         }),
         new api.ODWorker("opendiscord:logs",0,(instance,params,origin,cancel) => {
             const {guild,channel,user,ticket,newPriority} = params
