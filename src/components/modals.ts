@@ -114,10 +114,11 @@ export async function registerModalComponents(){
                         title:question.get("opendiscord:name").value,
                         description:(question.get("opendiscord:description").value) ? question.get("opendiscord:description").value : undefined,
                     })
+                    const minimumFilesIfRequired = (question.get("opendiscord:required").value) ? 1 : 0
                     component.setComponent(new api.ODFileUploadComponent(question.id.value,{
                         customId:question.id.value,
                         required:question.get("opendiscord:required").value,
-                        minAmount:(question.get("opendiscord:limits-enabled").value) ? question.get("opendiscord:limits-min").value : undefined,
+                        minAmount:(question.get("opendiscord:limits-enabled").value) ? Math.max(minimumFilesIfRequired,question.get("opendiscord:limits-min").value) : undefined,
                         maxAmount:(question.get("opendiscord:limits-enabled").value) ? question.get("opendiscord:limits-max").value : undefined,
                     }))
                     modal.addComponent(component,"end")

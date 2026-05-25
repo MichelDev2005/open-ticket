@@ -71,11 +71,16 @@ export function describePanelOptions(mode:"fields"|"text", panel:api.ODPanel): {
                 hasWebsite = true
                 ticketOnly = false
                 roleOnly = false
-            }else if (!dropdownMode && opt instanceof api.ODRoleOption){
+            }else if (opt instanceof api.ODRoleOption){
                 options.push(opt)
                 hasRole = true
                 ticketOnly = false
                 websiteOnly = false
+            }else if (opt instanceof api.ODSubPanelOption){
+                options.push(opt)
+                ticketOnly = false
+                websiteOnly = false
+                roleOnly = false
             }
         }
     })
@@ -130,7 +135,7 @@ export function describePanelOptions(mode:"fields"|"text", panel:api.ODPanel): {
             return {name:utilities.emojiTitle(emoji,name),value:description}
             
         }else{
-            //auto-generated plugin option
+            //auto-generated option (+ sub-panels)
             const emoji = opt.get("opendiscord:button-emoji") as api.ODOptionData<string>|null
             const name = opt.get("opendiscord:name") as api.ODOptionData<string>|null
             const description = opt.get("opendiscord:description") as api.ODOptionData<string>|null
@@ -184,7 +189,7 @@ export function describePanelOptions(mode:"fields"|"text", panel:api.ODPanel): {
             else return "**"+utilities.emojiTitle(emoji,name)+"**\n"+description
             
         }else{
-            //auto-generated plugin option
+            //auto-generated option (+ sub-panels)
             const emoji = opt.get("opendiscord:button-emoji") as api.ODOptionData<string>|null
             const name = opt.get("opendiscord:name") as api.ODOptionData<string>|null
             const description = opt.get("opendiscord:description") as api.ODOptionData<string>|null
