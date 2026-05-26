@@ -98,11 +98,11 @@ export async function renderQuickSetup(backFn:() => api.ODPromiseVoid){
 
 function quickSetupRequiresReset(): boolean {
     const generalConfig = opendiscord.configs.get("opendiscord:general")
-    if (generalConfig.data.token != "your bot token here! (or leave empty when using 'tokenFromENV')") return true
+    if (generalConfig.data.token != "INSERT_BOT_TOKEN") return true
     if (generalConfig.data.mainColor != "#f8ba00") return true
     if (generalConfig.data.language != "english") return true
     if (generalConfig.data.prefix != "!ticket ") return true
-    if (generalConfig.data.serverId != "discord server id") return true
+    if (generalConfig.data.serverId != "DISCORD_SERVER_ID") return true
 
     return false
 }
