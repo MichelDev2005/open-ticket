@@ -21,7 +21,7 @@ The bot is fully translated into <b>38+ languages</b> and has been battle-tested
 
 <h3 align="center"><b>⭐️ Support Open Ticket’s growth by starring this repo! ⭐️</b></h3>
 <p align="center"><sup>❤️ Love Open Ticket? <a href="https://github.com/sponsors/DJj123dj">Sponsorships</a> help fuel our HTML transcript servers and future features! ❤️</sup><br>
-<img align="center" src=".github/SPONSORS.svg" alt="Open Ticket" width="800px">
+<img align="center" src="https://raw.githubusercontent.com/open-discord-bots/hall-of-fame/refs/heads/main/svg/SPONSORS_YELLOW.svg" alt="A list of Open Ticket Sponsors" width="800px">
 </p>
 
 ---
@@ -166,7 +166,7 @@ With the amazing support of our translators, we've been able to translate Open T
 <!--[⭐ Contribute!](.github/CONTRIBUTING.md) -->
 
 ## 😎 Hall Of Fame
-<img alt="The full list of contributors for Open Ticket and Open Discord." src=".github/CONTRIBUTORS.svg">
+<img alt="The full list of contributors for Open Ticket and Open Discord." src="https://raw.githubusercontent.com/open-discord-bots/hall-of-fame/refs/heads/main/svg/CONTRIBUTORS.svg">
 
 ## ⭐️ Star History
 If you enjoy using Open ticket, **consider starring** our repository.  
