@@ -1,39 +1,85 @@
 [
     {
-        "id":"example-embed",
-        "name":"Example Embed",
-        "dropdown":false,
-        "options":["example-ticket","example-website","example-role"],
-
-        "text":"",
-        "embed":{
-            "enabled":true,
-            "title":"Tickets:",
-            "description":"Create a ticket by clicking one of the buttons below!",
-            
-            "customColor":"#f8ab00 (or leave empty)",
-            "url":"https://openticket.dj-dj.be (or leave empty)",
-
-            "image":"https://www.example.com/image.png (or leave empty)",
-            "thumbnail":"https://www.example.com/image.png (or leave empty)",
-            
-            "footer":"Open Ticket v4.1.3 (or leave empty)",
-            "fields":[
-                {"name":"field name","value":"field value","inline":false}
+        "id": "servicos-e-informacoes",
+        "name": "Serviços e Informações",
+        "dropdown": true,
+        "options": [
+            "casa-civil",
+            "seguranca-publica",
+            "fazenda-planejamento",
+            "cultura-comunicacao",
+            "procuradoria-geral",
+            "gabinete-governador"
+        ],
+        "text": "",
+        "embed": {
+            "enabled": true,
+            "title": "Atendimento ao cidadão - Serviços e Informações",
+            "description": "Utilize este sistema para solicitar serviços, obter informações, encaminhar documentos, registrar ocorrências ou tratar assuntos relacionados às Secretarias e órgãos do Governo. Após a abertura do protocolo, sua solicitação será analisada e atendida pela equipe competente.",
+            "customColor": "#f8ab00",
+            "url": "https://governonp.base44.app/",
+            "image": "",
+            "thumbnail": "",
+            "footer": "Governo do Estado de São Paulo - Gov Assist",
+            "fields": [
+                {
+                    "name": " ",
+                    "value": " ",
+                    "inline": false
+                }
             ],
-            "timestamp":false
+            "timestamp": false
         },
-        "settings":{
-            "dropdownPlaceholder":"Create a ticket!",
-
-            "enableMaxTicketsWarningInText":false,
-            "enableMaxTicketsWarningInEmbed":true,
-
-            "describeOptionsLayout":"simple OR normal OR detailed",
-            "describeOptionsCustomTitle":"",
-            "describeOptionsInText":false,
-            "describeOptionsInEmbedFields":true,
-            "describeOptionsInEmbedDescription":false
+        "settings": {
+            "dropdownPlaceholder": "Selecione a secretaria ou órgão",
+            "enableMaxTicketsWarningInText": false,
+            "enableMaxTicketsWarningInEmbed": false,
+            "describeOptionsLayout": "simple",
+            "describeOptionsCustomTitle": "",
+            "describeOptionsInText": false,
+            "describeOptionsInEmbedFields": false,
+            "describeOptionsInEmbedDescription": false
+        }
+    },
+    {
+        "id": "ouvidoria",
+        "name": "Ouvidoria",
+        "dropdown": true,
+        "options": [
+            "ouv-reclamacao",
+            "ouv-denuncia",
+            "ouv-sugestao",
+            "ouv-elogio",
+            "ouv-informacao"
+        ],
+        "text": "",
+        "embed": {
+            "enabled": true,
+            "title": "Ouvidoria do Governo do Estado de São Paulo",
+            "description": "A Ouvidoria é o canal oficial de comunicação entre o cidadão e a Administração Pública. Por meio deste atendimento, é possível registrar reclamações, denúncias, sugestões, elogios, pedidos de informação e demais manifestações relacionadas aos serviços prestados pelos órgãos e Secretarias do Governo. Após o registro, sua manifestação receberá um protocolo e será encaminhada ao setor competente para análise e providências.",
+            "customColor": "#f8ab00",
+            "url": "https://governonp.base44.app/",
+            "image": "",
+            "thumbnail": "",
+            "footer": "Governo do Estado de São Paulo - Ouvidoria",
+            "fields": [
+                {
+                    "name": "Tipos de Manifestação",
+                    "value": "📢 Reclamação\n⚠️ Denúncia\n💡 Sugestão\n👏 Elogio\n📄 Pedido de Informação",
+                    "inline": false
+                }
+            ],
+            "timestamp": false
+        },
+        "settings": {
+            "dropdownPlaceholder": "Selecione o tipo de manifestação",
+            "enableMaxTicketsWarningInText": false,
+            "enableMaxTicketsWarningInEmbed": false,
+            "describeOptionsLayout": "simple",
+            "describeOptionsCustomTitle": "Selecione o tipo de manifestação que deseja registrar.",
+            "describeOptionsInText": false,
+            "describeOptionsInEmbedFields": false,
+            "describeOptionsInEmbedDescription": false
         }
     }
 ]

@@ -1,37 +1,37 @@
 {
     "general":{
-        "enabled":false,
+        "enabled":true,
 
-        "enableChannel":false,
-        "enableCreatorDM":false,
-        "enableParticipantDM":false,
-        "enableActiveAdminDM":false,
-        "enableEveryAdminDM":false,
+        "enableChannel":true,
+        "enableCreatorDM":true,
+        "enableParticipantDM":true,
+        "enableActiveAdminDM":true,
+        "enableEveryAdminDM":true,
 
-        "channel":"transcript channel id (or leave empty)",
-        "mode":"html OR text"
+        "channel":"1513680083192381440",
+        "mode":"text"
     },
     "embedSettings":{
-        "customColor":"#f8ab00 (or leave empty)",
+        "customColor":"#f8ab00",
         "listAllParticipants":false,
         "includeTicketStats":false
     },
     "textTranscriptStyle":{
-        "layout":"simple OR normal OR detailed",
+        "layout":"detailed",
         "includeStats":true,
         "includeIds":false,
         "includeEmbeds":true,
         "includeFiles":true,
         "includeBotMessages":true,
 
-        "fileMode":"custom OR channel-name OR channel-id OR user-name OR user-id",
-        "customFileName":"this-is-a-transcript (or leave empty)"
+        "fileMode":"channel-name",
+        "customFileName":"transcript"
     },
     "htmlTranscriptStyle":{
         "background":{
             "enableCustomBackground":false,
-            "backgroundColor":"#f8ba00 (or leave empty)",
-            "backgroundImage":"https://www.example.com/image.png (or leave empty)" 
+            "backgroundColor":"#f8ba00",
+            "backgroundImage":"https://www.example.com/image.png" 
         },
         "header":{
             "enableCustomHeader":false,

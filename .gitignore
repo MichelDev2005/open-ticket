@@ -21,3 +21,5 @@ otdebug.txt
 !.docs/createDocs.js
 !.docs/mergeTranslations.js
 !.docs/typedoc-config.json
+
+.env

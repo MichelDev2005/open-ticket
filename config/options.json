@@ -1,126 +1,1088 @@
 [
     {
-        "id":"example-ticket",
-        "name":"Question",
-        "description":"Create this ticket if you have a question! (or leave empty)",
-        "type":"ticket",
-
-        "button":{
-            "emoji":"🎫 (or leave empty)",
-            "label":"question (or leave empty)",
-            "color":"gray OR red OR green OR blue"
+        "id": "casa-civil",
+        "name": "Secretaria da Casa Civil",
+        "description": "Recursos, denúncias institucionais e assuntos gerais do Governo",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Secretária da Casa Civil",
+            "color": "blue"
         },
-
-        "ticketAdmins":["discord role id"],
-        "readonlyAdmins":["discord role id"],
-        "allowCreationByBlacklistedUsers":false,
-        "questions":["example-question-1","example-question-2"],
-
-        "channel":{
-            "prefix":"question-",
-            "suffix":"user-name OR user-id OR random-number OR random-hex OR counter-dynamic OR counter-fixed",
-            "category":"category id (or leave empty)",
-            "closedCategory":"category id (or leave empty)",
-            "backupCategory":"category id (or leave empty)",
-            "claimedCategory":[
-                {"user":"user id","category":"category id"}
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・cci-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1511892839854768228",
+                    "category": "1513678298402656346"
+                }
             ],
-            "topic":"This is the topic of this ticket channel and is visible to everyone! (or leave empty)"
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
         },
-        
-        "dmMessage":{
-            "enabled":false,
-            "text":"Thank you for creating a ticket in our server! (or leave empty)",
-            "embed":{
-                "enabled":false,
-                "title":"Embed Title! (or leave empty)",
-                "description":"Description (or leave empty)",
-                "customColor":"#f8ab00 (or leave empty)",
-
-                "image":"https://www.example.com/image.png (or leave empty)",
-                "thumbnail":"https://www.example.com/image.png (or leave empty)",
-                "fields":[
-                    {"name":"field name","value":"field value","inline":false}
-                ],
-                "timestamp":false
-            }
-        },
-        "ticketMessage":{
-            "enabled":true,
-            "text":"",
-            "embed":{
-                "enabled":true,
-                "title":"Question Ticket",
-                "description":"Thank you for creating a 'Question' ticket in our server!\nOur support team will help you as soon as possible!",
-                "customColor":"#f8ab00 (or leave empty)",
-
-                "image":"https://www.example.com/image.png (or leave empty)",
-                "thumbnail":"https://www.example.com/image.png (or leave empty)",
-                "fields":[
-                    {"name":"field name","value":"field value","inline":false}
-                ],
-                "timestamp":false
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
             },
-            "ping":{
-                "@here":true,
-                "@everyone":false,
-                "custom":["discord role id"]
-            }
+            "image": "",
+            "thumbnail": ""
         },
-        "autoclose":{
-            "enableInactiveHours":false,
-            "inactiveHours":24,
-            "enableUserLeave":false,
-            "disableOnClaim":false
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
         },
-        "autodelete":{
-            "enableInactiveDays":false,
-            "inactiveDays":7,
-            "enableUserLeave":false,
-            "disableOnClaim":false
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
         },
-        "cooldown":{
-            "enabled":false,
-            "cooldownMinutes":10
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
         },
-        "limits":{
-            "enabled":false,
-            "globalMaximum":20,
-            "userMaximum":3
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
         },
-        "slowMode":{
-            "enabled":false,
-            "slowModeSeconds":20
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
         }
     },
     {
-        "id":"example-website",
-        "name":"Website",
-        "description":"Go to our website.",
-        "type":"website",
-
-        "button":{
-            "emoji":"😃",
-            "label":"Visit our website"
+        "id": "seguranca-publica",
+        "name": "Secretaria de Segurança Pública",
+        "description": "Denúncias, corregedoria, operações e assuntos relacionados às forças de segurança.",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Secretaria de Segurança Pública",
+            "color": "blue"
         },
-
-        "url":"https://www.dj-dj.be"
+        "ticketAdmins": [
+            "1478899281338302474"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・ssp-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1511892839854768228",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1478899281338302474"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
     },
     {
-        "id":"example-role",
-        "name":"Update Ping",
-        "description":"Click here to get notified on updates!",
-        "type":"role",
-
-        "button":{
-            "emoji":"📢",
-            "label":"Update Ping",
-            "color":"gray OR red OR green OR blue"
+        "id": "fazenda-planejamento",
+        "name": "Secretaria da Fazenda e Planejamento",
+        "description": "Tributos, benefícios, programas econômicos, habitação e planejamento financeiro",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Secretaria da Fazenda e Planejamento",
+            "color": "blue"
         },
-
-        "roles":["discord role id"],
-        "mode":"add&remove OR remove OR add",
-        "removeRolesOnAdd":["discord role id"],
-        "addOnMemberJoin":false
+        "ticketAdmins": [
+            "1478899281338302474"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・sfp-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1478899957275689050"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "cultura-comunicacao",
+        "name": "Secretaria da Cultura e Comunicação",
+        "description": "Eventos, projetos culturais, comunicação institucional e imprensa",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Secretaria da Cultura e Comunicação",
+            "color": "blue"
+        },
+        "ticketAdmins": [
+            "1478899281338302474"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・scc-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1478899651506864209"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "procuradoria-geral",
+        "name": "Procuradoria-Geral do Estado",
+        "description": "Pareceres jurídicos, consultas legais, acordos e defesa dos interesses do Estado",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Procuradoria-Geral do Estado",
+            "color": "blue"
+        },
+        "ticketAdmins": [
+            "1512312011789308004"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・pge-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1399838995776802877",
+                    "1426056429785059460"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "gabinete-governador",
+        "name": "Gabinete do Governador",
+        "description": "Demandas direcionadas ao Governador e assuntos de competência exclusiva do Chefe do Executivo.",
+        "type": "ticket",
+        "button": {
+            "emoji": "",
+            "label": "Gabinete do Governador",
+            "color": "blue"
+        },
+        "ticketAdmins": [
+            "1512312011789308004"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "channel": {
+            "prefix": "📞・gov-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1382033855627919380",
+                    "1389450119471956150"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "ouv-reclamacao",
+        "name": "Reclamação",
+        "description": "Registrar insatisfação sobre serviços, atendimento ou condutas administrativas",
+        "type": "ticket",
+        "button": {
+            "emoji": "📢",
+            "label": "Reclamação",
+            "color": "red"
+        },
+        "channel": {
+            "prefix": "📢・ouv-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "questions": [
+            "questao-nome",
+            "questao-assunto",
+            "questao-local",
+            "questao-descreva"
+        ],
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "ouv-denuncia",
+        "name": "Denúncia",
+        "description": "Comunicar possíveis irregularidades, abusos ou infrações",
+        "type": "ticket",
+        "button": {
+            "emoji": "⚠️",
+            "label": "Denúncia",
+            "color": "red"
+        },
+        "channel": {
+            "prefix": "⚠️・den-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "questions": [
+            "questao-anonima",
+            "questao-assunto",
+            "questao-local",
+            "questao-descreva",
+            "questao-provas"
+        ],
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "ouv-sugestao",
+        "name": "Sugestão",
+        "description": "Apresentar propostas para melhoria dos serviços públicos",
+        "type": "ticket",
+        "button": {
+            "emoji": "💡",
+            "label": "Sugestão",
+            "color": "green"
+        },
+        "channel": {
+            "prefix": "💡・sug-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "ouv-elogio",
+        "name": "Elogio",
+        "description": "Reconhecer a qualidade de serviços, projetos ou servidores",
+        "type": "ticket",
+        "button": {
+            "emoji": "👏",
+            "label": "Elogio",
+            "color": "green"
+        },
+        "channel": {
+            "prefix": "👏・elo-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "questions": [
+            "questao-assunto",
+            "questao-descreva"
+        ],
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
+    },
+    {
+        "id": "ouv-informacao",
+        "name": "Pedido de Informação",
+        "description": "Solicitar esclarecimentos ou informações sobre atos e serviços públicos",
+        "type": "ticket",
+        "button": {
+            "emoji": "📄",
+            "label": "Pedido de Informação",
+            "color": "blue"
+        },
+        "channel": {
+            "prefix": "📄・inf-",
+            "suffix": "random-number",
+            "category": "1513678298402656346",
+            "closedCategory": "1513678298402656346",
+            "backupCategory": "1513678298402656346",
+            "claimedCategory": [
+                {
+                    "user": "1513678298402656346",
+                    "category": "1513678298402656346"
+                }
+            ],
+            "topic": "Este é o assunto oficial do protocolo e ficará visível aos participantes autorizados."
+        },
+        "questions": [
+            "questao-assunto",
+            "questao-local",
+            "questao-descreva"
+        ],
+        "ticketAdmins": [
+            "1512282173405663442"
+        ],
+        "readonlyAdmins": [],
+        "allowCreationByBlacklistedUsers": false,
+        "dmMessage": {
+            "enabled": true,
+            "text": "Seu protocolo foi aberto com sucesso. Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+            "embed": {
+                "enabled": false,
+                "title": "Título do embed!",
+                "description": "Descrição",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "ticketMessage": {
+            "enabled": true,
+            "text": "",
+            "embed": {
+                "enabled": true,
+                "title": "Protocolo aberto com sucesso!",
+                "description": "Em breve, um representante do órgão competente realizará a análise e dará prosseguimento ao atendimento da sua solicitação.",
+                "customColor": "#f8ab00",
+                "image": "",
+                "thumbnail": "",
+                "fields": [],
+                "timestamp": false
+            },
+            "ping": {
+                "@here": false,
+                "@everyone": false,
+                "custom": [
+                    "1512282173405663442"
+                ]
+            },
+            "image": "",
+            "thumbnail": ""
+        },
+        "autoclose": {
+            "enableInactiveHours": false,
+            "inactiveHours": 24,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "autodelete": {
+            "enableInactiveDays": false,
+            "inactiveDays": 7,
+            "enableUserLeave": false,
+            "disableOnClaim": false
+        },
+        "cooldown": {
+            "enabled": false,
+            "cooldownMinutes": 10
+        },
+        "limits": {
+            "enabled": false,
+            "globalMaximum": 20,
+            "userMaximum": 3
+        },
+        "slowMode": {
+            "enabled": false,
+            "slowModeSeconds": 20
+        }
     }
 ]

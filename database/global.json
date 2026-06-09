@@ -1,1 +1,20 @@
-[]
+[
+    {"category":"opendiscord:last-version","key":"opendiscord:version","value":"v4.1.3"},
+    {"category":"opendiscord:last-version","key":"opendiscord:api","value":"v1.0.0"},
+    {"category":"opendiscord:last-version","key":"opendiscord:transcripts","value":"v2.1.0"},
+    {"category":"opendiscord:last-version","key":"opendiscord:livestatus","value":"v2.0.0"},
+    {"category":"opendiscord:last-version","key":"opendiscord:last-version","value":"v4.1.3"},
+    {"category":"opendiscord:option-suffix-history","key":"casa-civil","value":["0841","0226","0608"]},
+    {"category":"opendiscord:option-suffix-history","key":"seguranca-publica","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"fazenda-planejamento","value":["0038"]},
+    {"category":"opendiscord:option-suffix-history","key":"cultura-comunicacao","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"procuradoria-geral","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"gabinete-governador","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"ouv-reclamacao","value":["0051"]},
+    {"category":"opendiscord:option-suffix-history","key":"ouv-denuncia","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"ouv-sugestao","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"ouv-elogio","value":[]},
+    {"category":"opendiscord:option-suffix-history","key":"ouv-informacao","value":[]},
+    {"category":"opendiscord:panel-message","key":"1381430359157117051_1513676538468634694","value":"servicos-e-informacoes"},
+    {"category":"opendiscord:panel-message","key":"1381430359157117051_1513676569573462146","value":"ouvidoria"}
+]
